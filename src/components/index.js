@@ -1,5 +1,5 @@
 import Header from './Header';
-import Main from './Main';
+import Diary from './Diary';
 import About from './About';
 
-export { Header, Main, About }
+export { Header, Diary, About }

@@ -4,15 +4,17 @@ import '../css/header.scss';
 
 const Header = () => {
     return (
-        <ul className='navi_ul'>
-            <li>
-                <Link to='/about'>About</Link>
-            </li>
-            <li>
-                <Link to='/main'>Main</Link>
-            </li>
-        </ul>
+        <header>
+            <h1>LIKE</h1>
+            <ul className='navi_ul'>
+                <li>
+                    <Link to='/diary'>Diary</Link>
+                </li>
+                <li>
+                    <Link to='/about'>About</Link>
+                </li>
+            </ul>
+        </header>
     )
 };
-
 export default Header;
