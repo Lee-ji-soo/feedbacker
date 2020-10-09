@@ -1,5 +1,5 @@
 import Header from './Header';
-import Diary from './Diary';
+import News from './News';
 import About from './About';
 
-export { Header, Diary, About }
+export { Header, News, About }

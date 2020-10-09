@@ -3,7 +3,7 @@ import { diary } from '../assets/diary';
 import '../css/main.scss';
 import { useInput } from '../customs/useInput';
 
-const Diary = () => {
+const News = () => {
     const [input, handleInput, setInput] = useInput('');
     const [posts, setPosts] = useState([]);
 
@@ -30,7 +30,7 @@ const Diary = () => {
             <section className='input'>
                 <div className='post'>
                     {posts.map((post, i) =>
-                        <p key={`post${i}`}>〉 {post}</p>
+                        <p key={`post${i}`}>〉{post}</p>
                     )}
                 </div>
                 <div className='submit'>
@@ -42,4 +42,4 @@ const Diary = () => {
     )
 };
 
-export default Diary;
+export default News;

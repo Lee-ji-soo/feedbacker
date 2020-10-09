@@ -5,10 +5,10 @@ import '../css/header.scss';
 const Header = () => {
     return (
         <header>
-            <h1>LIKE</h1>
+            <h1>FRANKLY,</h1>
             <ul className='navi_ul'>
                 <li>
-                    <Link to='/diary'>Diary</Link>
+                    <Link to='/news'>News</Link>
                 </li>
                 <li>
                     <Link to='/about'>About</Link>
