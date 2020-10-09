@@ -9,89 +9,89 @@ h2{
     padding:0;
 }
 
-main{
-    display:flex;
-}
-
-.articles, .input{
+.article-section, .input{
     margin-top:2rem;
     margin-bottom:3rem;
 }
 
-.articles{
-    width:60%;
-    .article{
-        width:100%;
-            h2{
-                font-size:0.9rem;    
-                color:#333;
-                font-weight:400;
-                margin-bottom:0.2rem;
-            }
-            img{
-                width:100%;
-            }
-            p{
-                font-weight:200;
-                color:#666;
-                width:100%;
-                font-size:0.8rem;
-            }
-    }
-}
-
-.input{
-    width:40%;
-    margin-left:2rem;
+.article-wrap{
     display:flex;
-    flex-direction: column;
-
-    .post{
-        width:100%;
-        height:90%;
-
-        p{
-            font-size:0.8rem;
+    .article-section{
+        width:60%;
+        .article{
+            width:100%;
+                h2{
+                    font-size:0.9rem;    
+                    color:#333;
+                    font-weight:400;
+                    margin-bottom:0.2rem;
+                }
+                img{
+                    width:100%;
+                }
+                p{
+                    font-weight:200;
+                    color:#666;
+                    width:100%;
+                    font-size:0.8rem;
+                }
         }
     }
-
-    .submit{
-        height:35px;
-        box-sizing: border-box;
-        position:relative;
+    .input{
+        width:40%;
+        margin-left:2rem;
         display:flex;
-        align-items: center;
-
-        input, button{
-            position:absolute;
-            border:1px solid #333;
-            height:100%;
-            box-sizing: border-box;
-        }
-
-        input{
+        flex-direction: column;
+    
+        .post{
             width:100%;
-            text-align: center;
-            &:focus{
-                outline:0;
+            height:90%;
+    
+            p{
+                font-size:0.8rem;
             }
         }
     
-        button{
-            right:1rem;
-            font-size: 2rem;
-            border:none;
-            background: none;
-            line-height: 0.2rem;
-            cursor:pointer;
-
-            &:focus{
-                outline:0;
+        .submit{
+            height:35px;
+            box-sizing: border-box;
+            position:relative;
+            display:flex;
+            align-items: center;
+    
+            input, button{
+                position:absolute;
+                border:1px solid #333;
+                height:100%;
+                box-sizing: border-box;
             }
-            &:hover{
-                color:red;
+    
+            input{
+                width:100%;
+                text-align: center;
+                &:focus{
+                    outline:0;
+                }
+            }
+        
+            button{
+                right:1rem;
+                font-size: 2rem;
+                border:none;
+                background: none;
+                line-height: 0.2rem;
+                cursor:pointer;
+    
+                &:focus{
+                    outline:0;
+                }
+                &:hover{
+                    color:red;
+                }
             }
         }
+    
     }
-
+    
+    
 }

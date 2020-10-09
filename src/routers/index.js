@@ -1,5 +1,5 @@
 import Header from './Header';
-import News from './News';
+import Feed from './Feed';
 import About from './About';
 
-export { Header, News, About }
+export { Header, Feed, About }
