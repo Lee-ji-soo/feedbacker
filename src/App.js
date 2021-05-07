@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { Main, Header, About } from './components';
+import { Feed, Header, About, Login } from './routers';
 
 const App = () => {
     return (
@@ -8,8 +8,8 @@ const App = () => {
             <Header />
             <Switch>
                 <Route path='/about' component={About} />
-                <Route path='/main' component={Main} />
-                <Redirect path='/*' to='/main' />
+                <Route path='/feed' component={Feed} />
+                <Route path='/login' component={Login} />
             </Switch>
         </BrowserRouter>
     )

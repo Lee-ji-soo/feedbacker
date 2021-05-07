@@ -1,8 +1,9 @@
 {
   "name": "start",
   "version": "1.0.0",
-  "description": "",
+  "description": "http://feedbacker.dothome.co.kr/",
   "main": "index.js",
+  "homepage": "http:",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,6 +31,7 @@
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-facebook-login": "^4.1.1",
     "react-router-dom": "^5.2.0",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
