@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { diary } from '../assets/diary';
+import React, { useEffect, useState } from 'react';
+import { feeds } from '../assets/feeds';
 import '../css/main.scss';
 import { useInput } from '../customs/useInput';
 
@@ -13,10 +13,14 @@ const Feed = () => {
         setInput('');
     }
 
+    useEffect(() => {
+    }, [])
+
+
     return (
         <main>
             {
-                diary.map((con, i) =>
+                feeds.map((con, i) =>
                     <div key={`article${i}`} className='article-wrap'>
                         <section className='article-section'>
                             <article className='article'>
