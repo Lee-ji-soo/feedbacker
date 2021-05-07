@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FacebookLogin from "react-facebook-login";
 
-class Facebook extends React.Component {
+class Facebook extends Component {
     constructor(props) {
         super(props);
 
@@ -44,7 +44,7 @@ class Facebook extends React.Component {
                 <>
                     <div>
                         <img src={this.state.picture} />
-                        <h2>Welcom{this.state.name}</h2>
+                        <h2>Welcome{this.state.name}</h2>
                     </div>
                     <button onClick={this.logoutClicked}>logout</button>
                 </>
