@@ -1,10 +1,15 @@
-const express = require("express");
-const factory = require("../factory");
+import express from "express";
+import {
+  getBoard,
+  getDetail,
+  getComment,
+  postComment
+} from "../factory/index.js";
 const router = express.Router();
 
-router.get("/getBoard", factory.getBoard);
-router.get("/getDetail", factory.getDetail);
-router.get("/getComment", factory.getComment);
-router.post("/postComment", factory.postComment);
+router.get("/getBoard", getBoard);
+router.get("/getDetail", getDetail);
+router.get("/getComment", getComment);
+router.post("/postComment", postComment);
 
-module.exports = router;
+export default router;
