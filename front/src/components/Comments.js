@@ -4,6 +4,7 @@ import { useInput } from "../customs/useInput";
 import axios from "axios";
 
 const Comments = () => {
+  const [posts, setPosts] = useState([]);
   const [input, handleInput, setInput] = useInput('');
 
   const handleSubmit = () => {
@@ -12,11 +13,12 @@ const Comments = () => {
 
   const init = async() => {
     try{
-      // const { data } = await axios.get("http://localhost/api/getBoard")
-      // console.log(data);
-      // setPosts(data)
-    } catch{
-      // console.log( "failed because of", err)
+      const { data } = await axios.get("https://feedbacker.club/api/getBoard")
+      console.log(data);
+      setPosts(data)
+    } catch(err){
+      console.log(err)
+      console.log( "failed because of", err)
     }
   }
 
@@ -27,8 +29,8 @@ const Comments = () => {
   return(
     <CommentWrap>
       {posts.map((item, i) =>
-        <div className='post'>
-          <span key={`post${i}`}>〉{item.board_id}</span>
+        <div className='post' key={`post${i}`}>
+          <span>〉{item.board_id}</span>
           <span>{item.title}</span>
         </div>
       )}
@@ -41,15 +43,16 @@ const Comments = () => {
 }
 
 const CommentWrap = styled.li`
-    width:40%;
-    margin-left:2rem;
-    display:flex;
-    flex-direction: column; 
+    width: 40%;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
     .post{
-        width:100%;
-        height:90%; 
+        width: 100%;
+        height: 30px; 
         p{
-            font-size:0.8rem;
+            font-size: 0.8rem;
         }
     }   
     .submit{

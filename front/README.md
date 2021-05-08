@@ -10,11 +10,11 @@ Feedback for designers
 <br><br>
 
 ## 간략 기획
-<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb1.jpg'/>
-<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb2.jpg'/>
-<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb3.jpg'/>
-<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb4.jpg'/>
-<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb5.jpg'/>
+<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/readme/fb1.jpg'/>
+<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/readme/fb2.jpg'/>
+<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/readme/fb3.jpg'/>
+<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/readme/fb4.jpg'/>
+<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/readme/fb5.jpg'/>
 <br><br>
 ## 완성 페이지
 <img src=''>
