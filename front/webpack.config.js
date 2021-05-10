@@ -21,11 +21,16 @@ module.exports = {
       use: [
         'style-loader', 'css-loader', 'sass-loader'
       ]
+    },
+    {
+      test: /\.tsx?$/,
+      loader:"babel-loader",
+      exclude: /node_modules/
     }
     ]
   },
   resolve: {
-    extensions: ["*", ".js", "jsx"]
+    extensions: ["*", ".js", "jsx", ".ts", ".tsx"]
   },
   output: {
     path: __dirname + "/dist",

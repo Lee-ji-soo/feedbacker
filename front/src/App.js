@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { Feed, Header, About, Login } from './routers';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Header, Feed, About, Login } from './routers';
 
 const App = () => {
     return (

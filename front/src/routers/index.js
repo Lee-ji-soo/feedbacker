@@ -1,6 +1,6 @@
-import Header from './Header';
-import Feed from './Feed';
-import About from './About';
-import Login from './Login';
+import Header from "./Header.tsx"
+import Feed from './Feed.tsx';
+import About from './About.tsx';
+import Login from './Login.tsx';
 
 export { Header, Feed, About, Login }

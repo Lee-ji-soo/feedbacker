@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { useInput } from "../customs/useInput";
 import axios from "axios";
+import { useInput } from "../customs/useInput";
+import { API_URL } from "../const/utils.js";
+import styled from "@emotion/styled";
+
+type Post = {
+  board_id : number,
+  title : string,
+  writer : string,
+  datetime : Date
+}
 
 const Comments = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [input, handleInput, setInput] = useInput('');
 
   const handleSubmit = () => {
@@ -13,7 +21,7 @@ const Comments = () => {
 
   const init = async() => {
     try{
-      const { data } = await axios.get("https://feedbacker.club/api/getBoard")
+      const { data } = await axios.get(`${API_URL}/getBoard`)
       console.log(data);
       setPosts(data)
     } catch(err){
