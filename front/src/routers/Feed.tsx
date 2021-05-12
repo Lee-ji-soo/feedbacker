@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { feeds } from '../assets/feeds';
 import '../css/main.scss';
-import Comments from '../components/Comments.tsx';
+import Comments from '../components/Comments';
 
 const Feed = () => {
   return (

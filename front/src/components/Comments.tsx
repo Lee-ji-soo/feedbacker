@@ -58,7 +58,7 @@ const CommentWrap = styled.li`
     justify-content: flex-end; 
     .post{
         width: 100%;
-        height: 30px; 
+        height: 20px; 
         p{
             font-size: 0.8rem;
         }
