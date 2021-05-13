@@ -38,24 +38,25 @@ const Login = () => {
         <Input
           width={inputStyle.login.width}
           color={inputStyle.login.color}
-          padding={paddingStyle.down10}
+          padding={paddingStyle.left8}
+          padding_p={paddingStyle.down10}
           placeholder="아이디를 입력하세요."
           _onChange={e => setId(e.target.value)}
         />
         <Input
           width={inputStyle.login.width}
           color={inputStyle.login.color}
-          padding={paddingStyle.down10}
+          padding={paddingStyle.left8}
+          padding_p={paddingStyle.down10}
           type="password"
           placeholder="비밀번호를 입력하세요."
           _onChange={e => setPwd(e.target.value)}
         />
         <Button 
-          width="400px" 
+          width={inputStyle.login.width}
           bg="dark" 
           txt="LOG IN"
           _onClick={()=>{
-            console.log("로그인 했어");
             login();
           }}
         />

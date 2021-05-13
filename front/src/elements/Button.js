@@ -30,7 +30,7 @@ Button.defaultProps = {
 const BG = (bg) => {
   if (bg === "light") {
     return `
-      background-color: #c4c4c4; 
+      background-color: #eaeaea; 
       color: #111;`;
   } else if (bg === "dark") {
     return `

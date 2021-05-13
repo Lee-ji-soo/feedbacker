@@ -1,5 +1,6 @@
-import Post from "./Post";
+import Feed from "./Feed";
+import Design from "./Design";
 import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
 
-export { Post, CommentList, CommentInput }; 
+export { Feed, Design, CommentList, CommentInput }; 

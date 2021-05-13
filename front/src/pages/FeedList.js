@@ -1,14 +1,18 @@
-// PostList.js
+import React from "react";
+import { Grid } from "../elements";
+import { Feed } from "../components";
+import { feeds } from '../assets/feeds';
 
-import React, { Fragment } from "react";
-import { Post } from "../components";
-
-const PostList = (props) => {
+const FeedList = (props) => {
   return(
-    <Fragment>
-      <Post/>
-    </Fragment>
+    <Grid padding="30px 0">
+      {
+        feeds.map((con, i) => (
+          <Feed key={`FEED_${i}`} {...con}/>
+        ))
+      }
+    </Grid>
   )
 }
 
-export default PostList
+export default FeedList

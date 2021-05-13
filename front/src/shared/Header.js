@@ -4,27 +4,28 @@ import { Grid, Image, Button, Text } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
 import { apiKey } from "./firebase";
-import Permit from "./Permit";
 import styled from "styled-components";
+import { naviStyle } from "../shared/styleUtils";
 
 const Header = () => {
   const dispatch = useDispatch();
+
+  //check_login
   const is_login = useSelector((state) => state.user.is_login);
   const _ssesion_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
   const is_session = sessionStorage.getItem(_ssesion_key) ? true : false;
-  const [location, setLocation] = useState("feed");
-
-  const listenLocation = history.listen((location, action) => {
+  
+  //location
+  const [location, setLocation] = useState(history.location.pathname.substr(1));
+  
+  history.listen(() => {
     const curLocation = history.location.pathname.substr(1);
     setLocation(curLocation);
   });
-
-  const naviStyle ={
-    width: "70px",
-    size: "19px",
-    bg: "white",
-    fontFamily: "Teko",
-  }
+  
+  useEffect(()=>{
+    setLocation(location);
+  },[])
 
   return (
     <>
@@ -37,7 +38,10 @@ const Header = () => {
             bg={naviStyle.bg}
             size={naviStyle.size}
             fontFamily={naviStyle.fontFamily}
-            deco={location === "feed" ? "underline" : ""}
+            deco={location === "feed" || location === "" 
+              ? "underline" 
+              : ""
+            }
             _onClick={() => {
               history.push("/feed");
             }}

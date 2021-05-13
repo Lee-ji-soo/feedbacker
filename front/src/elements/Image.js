@@ -2,11 +2,12 @@ import React, { Fragment } from "react"
 import styled from "styled-components";
 
 const Image = (props) => {
-  const { shape, src, size } = props;
+  const { shape, src, size, padding } = props;
 
   const styles = {
     src,
-    size
+    size,
+    padding
   }
 
   if(shape === "circle"){
@@ -17,7 +18,7 @@ const Image = (props) => {
 
   if(shape === "rectangle"){
     return(
-      <AspectOuter>
+      <AspectOuter {...styles}>
         <AspectInner {...styles}/>
       </AspectOuter>
     )
@@ -31,33 +32,40 @@ const Image = (props) => {
 };
 
 Image.defaultProps = {
+  width: "100%",
   shape: "rectangle",
   src: "https://1wecodereact.s3.ap-northeast-2.amazonaws.com/wishlist-blk-focus.svg",
   size: 36,
+  padding: "0",
 }
 
 const AspectOuter = styled.div`
-  width: 100%;
+  width: ${props => props.size};
   min-width: 250px;
 `
 const AspectInner = styled.div`
   position: relative;
-  padding-top: 50%;
   overflow: hidden;
+  padding: ${props => props.padding};
+  padding-top: 70%;
+  box-sizing: border-box;
   background-image: url(${(props)=> props.src});
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 `
 
 const ImageCircle = styled.div`
   --size : ${(props) => props.size}px;
   width: var(--size);
   height: var(--size);
+  padding: ${props => props.padding};
+  margin: 4px;
   border-radius: var(--size);
-  
+  box-sizing: border-box;
   background-color : #c4c4c4;
   background-image: url(${(props) => props.src});
   background-size: cover;
-  margin: 4px;
-`;
+  `;
 
 export default Image

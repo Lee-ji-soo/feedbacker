@@ -1,9 +1,10 @@
 // PostList.js
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Input, Grid, Button } from "../elements";
+import { Input, Text, Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { emailCheck } from "../shared/utils";
+import { inputStyle, paddingStyle } from "../shared/styleUtils";
 
 const Join = () => {
   const dispatch = useDispatch();
@@ -29,38 +30,56 @@ const Join = () => {
 
   return (
     <>
-      <Grid padding="16px">
-        <h1>회원가입</h1>
+      <Grid is_flex direction="column" justify="center" padding="16px">
+        <Grid width={inputStyle.login.width}>
+          <Text 
+            bold
+            size="20px"
+            align="start"
+            padding={paddingStyle.down10}
+          >
+            JOIN
+          </Text>
+        </Grid>
         <Input
-          label="아이디"
+          width={inputStyle.login.width}
+          color={inputStyle.login.color}
+          padding={paddingStyle.left8}
+          padding_p={paddingStyle.down10}
           placeholder="아이디를 입력하세요."
-          _onChange={(e) => setId(e.target.value)}
+          _onChange={e => setId(e.target.value)}
         />
         <Input
-          label="닉네임"
-          type="text"
+          width={inputStyle.login.width}
+          color={inputStyle.login.color}
+          padding={paddingStyle.left8}
+          padding_p={paddingStyle.down10}
           placeholder="닉네임을 입력하세요."
-          _onChange={(e) => setUserName(e.target.value)}
+          _onChange={e => setUserName(e.target.value)}
         />
         <Input
-          label="비밀번호"
+          width={inputStyle.login.width}
+          color={inputStyle.login.color}
+          padding={paddingStyle.left8}
+          padding_p={paddingStyle.down10}
           type="password"
           placeholder="비밀번호를 입력하세요."
-          _onChange={(e) => setPwd(e.target.value)}
+          _onChange={e => setPwd(e.target.value)}
         />
         <Input
-          label="비밀번호 확인"
+          width={inputStyle.login.width}
+          color={inputStyle.login.color}
+          padding={paddingStyle.left8}
+          padding_p={paddingStyle.down10}
           type="password"
-          placeholder="비밀번호를 다시 입력하세요."
-          _onChange={(e) => setPwdCheck(e.target.value)}
+          placeholder="비밀번호를 다시 입력해주세요."
+          _onChange={e => setPwdCheck(e.target.value)}
         />
         <Button
-          _onClick={() => {
-            join();
-          }}
-          width="100%"
+          width={inputStyle.login.width}
           bg="dark"
-          txt="회원가입하기"
+          txt="JOIN IN"
+          _onClick={() => join()}
         />
       </Grid>
     </>

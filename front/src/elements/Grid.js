@@ -5,6 +5,7 @@ const Grid = (props) => {
   const { 
     is_flex,
     justify,
+    align,
     direction,
     width, 
     padding, 
@@ -16,6 +17,7 @@ const Grid = (props) => {
   const styles = {
     is_flex,
     justify,
+    align,
     direction,
     width,
     margin,
@@ -33,16 +35,18 @@ const Grid = (props) => {
 Grid.defaultProps = {
   is_flex: false,
   justify: "space-between",
+  align: "center", 
   direction: "row",
   width: "100%",
   padding: false,
-  margin: false,
+  margin: "0 auto",
   bg: false,
   children: null,
 };
 
 const GridBox = styled.div`
   width: ${(props) => props.width};
+  max-width: 1100px;
   height: 100%;
   box-sizing: border-box;
   padding: ${(props) => (props.padding ? props.padding : null)};
@@ -52,11 +56,11 @@ const GridBox = styled.div`
     props.is_flex
       ? `
       display: flex;
-      align-items: center;
     `
       : null}
   flex-direction: ${props => props.direction};
-  justify-content: ${(props) => props.justify};
+  justify-content: ${props => props.justify};
+  align-items: ${props => props.align};
 `;
 
 export default Grid;

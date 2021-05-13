@@ -2,8 +2,8 @@ import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 
 const Input = ( props ) => {
-  const {width, padding, label, type, color, placeholder, _onChange} = props;
-  const styles = { width, color, padding};
+  const {width, padding, padding_p, label, type, color, placeholder, _onChange} = props;
+  const styles = { width, color, padding, padding_p};
   return (
     <Ipt {...styles}>
       <label>{label}</label>
@@ -20,6 +20,7 @@ const Input = ( props ) => {
 Input.defaultProps = {
   width : "100%",
   padding: "0",
+  padding_p: "0",
   label : "",
   name: "",
   type: "",
@@ -28,10 +29,10 @@ Input.defaultProps = {
   _onChange: () => {},
 };
 
-const Color = color => {
+const BG = color => {
   if (color === "light"){
     return `
-      border: 1px solid #c4c4c4;
+      border: 1px solid #eaeaea;
     `
   } else if (color === "dark") {
     return `
@@ -42,17 +43,18 @@ const Color = color => {
 } 
 const Ipt = styled.p`
   width: ${props=> props.width};
+  padding: ${props => props.padding_p};
   label{
     display: block;
   }
   input{
     width: 100%;
     height: 40px;
+    padding: ${props => props.padding};
     box-sizing: border-box;
-    ${props => Color(props.color)}
+    ${props => BG(props.color)}
     color: #111;
   }
-  padding: ${props => props.padding};
 ` 
 
 export default Input;
