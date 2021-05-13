@@ -5,7 +5,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "../redux/configureStore";
 import { Grid, Button } from "../elements";
 import Header from "./Header";
-import { Login, Join, FeedList, PostDetail, PostWrite } from "../pages";
+import { Login, Join, FeedList, Post } from "../pages";
 import { apiKey } from "../shared/firebase";
 import { actionCreators as userActions } from "../redux/modules/user";
 import Permit from "./Permit";
@@ -31,7 +31,7 @@ function App() {
           <Route path="/join" exact component={Join} />
           {/* <Route path="/post" exact component={PostWrite} /> */}
           <Route path="/feed" exact component={FeedList} />
-          <Route path="/postwrite" exact component={PostWrite} />
+          <Route path="/post" exact component={Post} />
         </ConnectedRouter>
       </Grid>
       <Permit>
@@ -39,7 +39,7 @@ function App() {
           is_float={true}
           txt="+"
           _onClick={() => {
-            console.log("click");
+            history.push("/post");
           }}
         ></Button>
       </Permit>
