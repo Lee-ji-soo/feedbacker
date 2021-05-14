@@ -6,9 +6,11 @@ import { actionCreators as imageActions } from "../modules/image";
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
+const UPDATE_POST = "UPDATE_POST";
 
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
+const updatePost = createAction(UPDATE_POST, (id, contents) => ({id, contents}));
 
 const initialState = {
   list: [],
@@ -19,8 +21,44 @@ const initialPost = {
     "https://1wecodereact.s3.ap-northeast-2.amazonaws.com/wishlist-blk-focus.svg",
   contents: "귀여운 강아지 입니다용",
   comment_cnt: 0,
-  insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+  insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
 };
+
+const updatePostFB = (contents = "", id) => {
+  return function (dispatch, getState, {history}){
+    const updateRef = firestore.collection("post").doc(id);
+    const _preview = getState().image.preview;
+    if(_preview === null){
+      return updateRef
+      .update({contents})
+      .then(() => {
+        dispatch(updatePost(id, {contents}))
+        history.replace("/");
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    } else{
+      const user_id = getState().user.user.uid;
+      const _upload = storage.ref(`images/${user_id}_${new Date().getTime()}`).putString(_preview, "data_url");
+      _upload.then(snapshot => {
+        snapshot.ref
+        .getDownloadURL()
+          .then(url => {
+            updateRef
+            .update({...contents, image_url: url})
+            .then(()=>{
+              dispatch(updatePost(id, {...contents, image_url:url}))
+              history.replace("/");
+            })
+          }).catch(err => {
+            window.alert("이미지 업로드에 문제가 있습니다.")
+            console.log(err);
+          })
+        })
+      }
+  }
+}
 
 const addPostFB = (contents = "") => {
   return function (dispatch, getState, { history }) {
@@ -36,7 +74,7 @@ const addPostFB = (contents = "") => {
     const _post = {
       ...initialPost,
       contents,
-      insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+      insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
     };
 
     const _image = getState().image.preview;
@@ -76,10 +114,11 @@ const addPostFB = (contents = "") => {
 
 const getPostFB = () => {
   return function (dispatch, getState, { history }) {
-    const postDB = firestore.collection("post");
+    const postDB = firestore.collection("post").orderBy("insert_dt", "asc");
     postDB.get().then((docs) => {
       let post_list = [];
-      docs.forEach((doc) => {
+
+      docs.forEach(doc => {
         let _post = doc.data();
 
         let post = Object.keys(_post).reduce(
@@ -93,7 +132,7 @@ const getPostFB = () => {
             }
             return { ...acc, [cur]: _post[cur] };
           },
-          { id: docs.id, user_info: {} }
+          { id: doc.id, user_info: {} }
         );
         post_list.push(post);
       });
@@ -105,13 +144,18 @@ const getPostFB = () => {
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.list = action.payload.post_list;
       }),
     [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state, draft => {
         draft.list.unshift(action.payload.post);
       }),
+    [UPDATE_POST] : (state, action) =>
+      produce(state, draft => {
+        let idx = draft.list.findIndex( d => d.id === action.payload.id);
+        draft.list[idx] = {...draft.list[idx], ...action.payload.contents};
+      })
   },
   initialState
 );
@@ -121,6 +165,7 @@ const actionCreators = {
   addPost,
   getPostFB,
   addPostFB,
+  updatePostFB,
 };
 
 export { actionCreators };

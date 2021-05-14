@@ -7,6 +7,7 @@ const Grid = (props) => {
     justify,
     align,
     direction,
+    position,
     width, 
     padding, 
     margin, 
@@ -19,6 +20,7 @@ const Grid = (props) => {
     justify,
     align,
     direction,
+    position,
     width,
     margin,
     padding,
@@ -37,6 +39,7 @@ Grid.defaultProps = {
   justify: "space-between",
   align: "center", 
   direction: "row",
+  position:"",
   width: "100%",
   padding: false,
   margin: "0 auto",
@@ -45,13 +48,6 @@ Grid.defaultProps = {
 };
 
 const GridBox = styled.div`
-  width: ${(props) => props.width};
-  max-width: 1100px;
-  height: 100%;
-  box-sizing: border-box;
-  padding: ${(props) => (props.padding ? props.padding : null)};
-  margin: ${(props) => (props.margin ? props.margin : null)};
-  background-color: ${(props) => (props.bg ? props.bg : null)};
   ${(props) =>
     props.is_flex
       ? `
@@ -61,6 +57,14 @@ const GridBox = styled.div`
   flex-direction: ${props => props.direction};
   justify-content: ${props => props.justify};
   align-items: ${props => props.align};
+  position: ${props => props.position};
+  width: ${(props) => props.width};
+  max-width: 1100px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: ${(props) => (props.padding ? props.padding : null)};
+  margin: ${(props) => (props.margin ? props.margin : null)};
+  background-color: ${(props) => (props.bg ? props.bg : null)};
 `;
 
 export default Grid;

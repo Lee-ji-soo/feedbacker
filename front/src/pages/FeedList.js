@@ -6,19 +6,20 @@ import { actionCreators as postAction } from "../redux/modules/post";
 
 const FeedList = (props) => {
   const dispatch = useDispatch();
-  const feed_list = useSelector((state) => state.post.list);
+  const feed_list = useSelector(state => state.post.list);
+  const user_info = useSelector(state => state.user.user);
 
   useEffect(() => {
-    if (feed_list.length === 0) {
-      dispatch(postAction.getPostFB());
-    }
+    dispatch(postAction.getPostFB());
   }, []);
 
   return (
     <Grid padding="30px 0">
-      {feed_list.map((data, i) => (
-        <Feed key={`FEED_${i}`} {...data} />
-      ))}
+      {feed_list.map((feed, i) => {
+        console.log(feed);
+        const isMe = user_info && feed.user_info.user_id === user_info.uid
+          return <Feed key={`FEED_${i}`} {...feed} isMe={isMe}/>
+      })}
     </Grid>
   );
 };

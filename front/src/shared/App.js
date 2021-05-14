@@ -29,9 +29,9 @@ function App() {
           <Route path="/" exact component={FeedList} />
           <Route path="/login" exact component={Login} />
           <Route path="/join" exact component={Join} />
-          {/* <Route path="/post" exact component={PostWrite} /> */}
           <Route path="/feed" exact component={FeedList} />
           <Route path="/post" exact component={Post} />
+          <Route path="/post/:id" exact component={Post} />
         </ConnectedRouter>
       </Grid>
       <Permit>

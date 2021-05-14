@@ -2,13 +2,23 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { width, bg, txt, size, deco, fontFamily, _onClick, is_float } = props;
+  const { 
+    width, 
+    bg, 
+    txt, 
+    size,
+    color, 
+    deco, 
+    fontFamily, 
+    _onClick, 
+    is_float 
+  } = props;
 
   if (is_float) {
     return <FloatBtn onClick={_onClick}>{txt}</FloatBtn>;
   }
 
-  const styles = { width, bg, size, deco, fontFamily };
+  const styles = { width, bg, size, deco, color, fontFamily };
   return (
     <Btn onClick={_onClick} {...styles}>
       {txt}
@@ -21,6 +31,7 @@ Button.defaultProps = {
   bg: "light" | "dark" | "white",
   txt: "",
   size: "",
+  color: "",
   deco: "none",
   fontFamily: "",
   _onClick: () => {},
@@ -48,6 +59,7 @@ const Btn = styled.button`
   width: ${(props) => props.width};
   height: 40px;
   ${(props) => BG(props.bg)}
+  color: ${props => props.color};
   border: none;
   box-sizing: border-box;
   cursor: pointer;
