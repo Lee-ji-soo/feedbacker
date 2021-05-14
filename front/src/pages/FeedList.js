@@ -8,7 +8,7 @@ const FeedList = (props) => {
   const dispatch = useDispatch();
   const feed_list = useSelector(state => state.post.list);
   const user_info = useSelector(state => state.user.user);
-
+  
   useEffect(() => {
     dispatch(postAction.getPostFB());
   }, []);
@@ -16,7 +16,6 @@ const FeedList = (props) => {
   return (
     <Grid padding="30px 0">
       {feed_list.map((feed, i) => {
-        console.log(feed);
         const isMe = user_info && feed.user_info.user_id === user_info.uid
           return <Feed key={`FEED_${i}`} {...feed} isMe={isMe}/>
       })}

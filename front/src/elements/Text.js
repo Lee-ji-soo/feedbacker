@@ -23,9 +23,10 @@ const P = styled.p`
   padding: ${props => props.padding};
   color: ${props => props.color};
   font-size: ${props => props.size};
-  font-weight: ${props => props.bold ? "800" : "400" };
-  text-align: ${props => props.align};
   font-family: ${props => props.fontFamily};
+  font-weight: ${props => props.bold ? "800" : "400" };
+  line-height: 1.5;
+  text-align: ${props => props.align};
 ` 
 
 export default Text;

@@ -6,6 +6,7 @@ import { connectRouter } from "connected-react-router";
 import User from "./modules/user";
 import Post from "./modules/post";
 import Image from "./modules/image";
+import Comment from "./modules/comment";
 
 export const history = createBrowserHistory();
 
@@ -13,15 +14,16 @@ const rootReducer = combineReducers({
   user: User,
   post: Post,
   image: Image,
+  comment: Comment,
   router: connectRouter(history),
 });
 
-// 사용할 middleware array
-const middlewares = [thunk.withExtraArgument({ history })];
+const middlewares = [thunk.withExtraArgument({ history: history })];
 
+// 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
 const env = process.env.NODE_ENV;
 
-// 개발환경에서 로거로 redux의 로그를 알려줍니다.
+// 개발환경에서는 로거라는 걸 하나만 더 써볼게요.
 if (env === "development") {
   const { logger } = require("redux-logger");
   middlewares.push(logger);

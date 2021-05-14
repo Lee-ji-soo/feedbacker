@@ -2,16 +2,33 @@ import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 
 const Input = ( props ) => {
-  const {width, padding, padding_p, label, type, color, placeholder, _onChange} = props;
+  const {
+    width, 
+    padding, 
+    padding_p, 
+    label, 
+    type, 
+    value,
+    color, 
+    placeholder, 
+    _onChange,
+    onSubmit
+  } = props;
+
   const styles = { width, color, padding, padding_p};
   return (
     <Ipt {...styles}>
       <label>{label}</label>
       <input
-        name={name}
         type={type}
         placeholder={placeholder}
         onChange={_onChange}
+        value={value}
+        onKeyPress={e => {
+          if(e.key === "Enter"){
+            onSubmit(e);
+          }
+        }}
       />
     </Ipt>
   )
@@ -22,11 +39,12 @@ Input.defaultProps = {
   padding: "0",
   padding_p: "0",
   label : "",
-  name: "",
+  value: "",
   type: "",
   color: "light",
   placeholder : "",
   _onChange: () => {},
+  onSubmit:()=>{},
 };
 
 const BG = color => {

@@ -1,6 +1,6 @@
 export const naviStyle = {
-  width: "70px",
-  size: "19px",
+  width: "75px",
+  size: "20px",
   bg: "white",
   fontFamily: "Teko",
 };
@@ -22,3 +22,7 @@ export const paddingStyle = {
   left8: "0 0 0 8px",
   surround10: "10px",
 };
+
+export const commentStyle = {
+  fontSize : "14px"
+}

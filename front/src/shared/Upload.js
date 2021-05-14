@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from "react";
+import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 import styled from "styled-components";
@@ -14,11 +14,9 @@ const Upload = (props) => {
   const is_uploading = useSelector((state) => state.image.uploading);
 
   const selectFile = () => {
-    console.log("file type");
     const reader = new FileReader();
     const file = inputRef.current.files[0];
 
-    console.log(file);
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       dispatch(imageActions.setPreview(reader.result));

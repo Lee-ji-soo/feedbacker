@@ -8,7 +8,6 @@ import { history } from "../redux/configureStore";
 
 const Feed = (props) => {
   const { id, isMe } = props;
-
   return(
     <Grid is_flex align="flex-end" padding="0 0 100px 0">
       <Grid position="relative" width="550px">
@@ -26,9 +25,15 @@ const Feed = (props) => {
         }
         <Design {...props}/>
       </Grid>
-      <Grid width="450px">
-        <CommentList/>
-        <CommentInput/>
+      <Grid 
+        width="450px" 
+        height="478px" 
+        is_flex 
+        direction="column" 
+        justify="flex-end"
+      >
+        <CommentList {...props}/>
+        <CommentInput {...props}/>
       </Grid>
     </Grid>
   )

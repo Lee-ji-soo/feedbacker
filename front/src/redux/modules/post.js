@@ -114,7 +114,7 @@ const addPostFB = (contents = "") => {
 
 const getPostFB = () => {
   return function (dispatch, getState, { history }) {
-    const postDB = firestore.collection("post").orderBy("insert_dt", "asc");
+    const postDB = firestore.collection("post").orderBy("insert_dt", "desc");
     postDB.get().then((docs) => {
       let post_list = [];
 
@@ -166,6 +166,7 @@ const actionCreators = {
   getPostFB,
   addPostFB,
   updatePostFB,
+  updatePost,
 };
 
 export { actionCreators };
