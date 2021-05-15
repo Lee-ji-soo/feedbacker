@@ -44,7 +44,7 @@ const CommentListBox = styled(Grid)`
 
 const Comment = (props) => {
   const dispatch = useDispatch();
-  const { user_name, user_profile, user_id, id, post_id, contents, insert_dt, isMe } = props;
+  const { user_name, user_profile, id, post_id, contents, insert_dt, isMe } = props;
 
   return(
     <Grid is_flex height="max-content" margin="8px 0 0 0">

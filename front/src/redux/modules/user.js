@@ -1,6 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 
 import { auth } from "../../shared/firebase";
 import firebase from "firebase/app";
@@ -18,10 +17,6 @@ const getUser = createAction(GET_USER, (user) => ({ user }));
 const initialState = {
   user: null,
   is_login: false,
-};
-
-const user_initial = {
-  user_name: "soolee",
 };
 
 //middleware actions
@@ -64,7 +59,6 @@ const joinFB = (id, pwd, user_name) => {
     auth
       .createUserWithEmailAndPassword(id, pwd)
       .then((user) => {
-        console.log(user);
         auth.currentUser
           .updateProfile({
             displayName: user_name,
@@ -130,7 +124,6 @@ export default handleActions(
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        deleteCookie("is_login");
         draft.user = null;
         draft.is_login = false;
       }),

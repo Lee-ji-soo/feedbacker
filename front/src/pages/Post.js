@@ -29,11 +29,14 @@ const Post = (props) => {
   }
 
   if (!is_login) {
-    return <Grid marin="100px 0px" padding="16px"></Grid>;
+    return <Grid marin="100px 0px" padding="16px"> 로그인 해주세요 :) </Grid>;
   }
   return (
     <Grid is_flex direction="column" margin="20px 0">
-      <Upload width={inputStyle.post.width} />
+      <Upload
+        sizeGuide="550x385"
+        width={inputStyle.post.width} 
+      />
       <Grid width={inputStyle.post.width} margin="20px 0">
         <Image shape="rectangle" src={src()} />
       </Grid>

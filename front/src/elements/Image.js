@@ -35,7 +35,7 @@ Image.defaultProps = {
 
 const AspectOuter = styled.div`
   width: ${(props) => props.size};
-  min-width: 250px;
+  min-width: 70px;
   background-color: #f8f8f8;
 `;
 const AspectInner = styled.div`

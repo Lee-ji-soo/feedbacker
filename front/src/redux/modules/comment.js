@@ -1,8 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { firestore } from "../../shared/firebase";
-import moment from "moment";
 import firebase from "firebase/app";
+import { firestore, realtime } from "../../shared/firebase";
+import moment from "moment";
 import { actionCreators as postActions } from "./post";
 
 const SET_COMMENT = "SET_COMMENT";
@@ -51,6 +51,27 @@ const addCommentFB = (post_id, contents) => {
             if(post){
               dispatch(postActions.updatePost(post_id, { comment_cnt: parseInt(post.comment_cnt) + 1}))
             }
+
+            //noti
+            const _noti_item = realtime.ref(`noti/${post.user_info.user_id}/list`).push();
+            _noti_item.set({
+              post_id,
+              user_name: comment.user_name,
+              image_url: post.image_url,
+              insert_dt: comment.insert_dt,
+            }, err => {
+              if(err){
+                console.log("noti save error", err)
+              }else{
+                const cur_user_id = user_info.uid
+                const post_user_id = post.user_info.user_id
+                const notiDB = realtime.ref(`noti/${post.user_info.user_id}`);
+                if (post_user_id !== cur_user_id){
+                  notiDB.update({ read: false })
+                }else{ return }
+              }
+            })
+
           }).catch(err => {
             console.log(err);
           })

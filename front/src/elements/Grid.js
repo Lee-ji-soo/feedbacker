@@ -14,7 +14,8 @@ const Grid = (props) => {
     margin, 
     bg, 
     className,
-    children
+    children,
+    _onClick,
   } = props;
 
   const styles = {
@@ -32,7 +33,7 @@ const Grid = (props) => {
 
   return (
     <Fragment>
-      <GridBox className={className} {...styles}>{children}</GridBox>
+      <GridBox onClick={_onClick} className={className} {...styles}>{children}</GridBox>
     </Fragment>
   );
 };
@@ -49,6 +50,7 @@ Grid.defaultProps = {
   margin: "0 auto",
   bg: false,
   children: null,
+  _onClick: () => {}
 };
 
 const GridBox = styled.div`

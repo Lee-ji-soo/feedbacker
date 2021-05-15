@@ -1,11 +1,13 @@
 import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
+import { Text } from "../elements";
 import styled from "styled-components";
 
 const Upload = (props) => {
   const dispatch = useDispatch();
-  const { width } = props;
+
+  const { width, sizeGuide } = props;
   const styles = {
     width,
   };
@@ -25,7 +27,14 @@ const Upload = (props) => {
 
   return (
     <InputWrap {...styles}>
-      <label htmlFor="input_file">file upload + </label>
+      <label htmlFor="input_file">file upload  +</label>
+      <Text
+        align="start" 
+        size="13px" 
+        color="#c4c4c4"
+        padding="5px 0 0 0"
+      >{props.sizeGuide}사이즈를 권장합니다 :)
+      </Text>
       <input
         ref={inputRef}
         id="input_file"
@@ -36,6 +45,11 @@ const Upload = (props) => {
     </InputWrap>
   );
 };
+
+Upload.defaultProps = {
+  width : "",
+  sizeGuide : "",
+}
 
 const InputWrap = styled.p`
   width: ${(props) => props.width};

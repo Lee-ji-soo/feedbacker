@@ -41,6 +41,7 @@ const Login = () => {
           padding={paddingStyle.left8}
           padding_p={paddingStyle.down10}
           placeholder="아이디를 입력하세요."
+          value={id}
           _onChange={e => setId(e.target.value)}
         />
         <Input
@@ -50,15 +51,15 @@ const Login = () => {
           padding_p={paddingStyle.down10}
           type="password"
           placeholder="비밀번호를 입력하세요."
+          value={pwd}
           _onChange={e => setPwd(e.target.value)}
+          onSubmit={login}
         />
         <Button 
           width={inputStyle.login.width}
           bg="dark" 
           txt="LOG IN"
-          _onClick={()=>{
-            login();
-          }}
+          _onClick={login}
         />
       </Grid>
     </>
