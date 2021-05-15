@@ -45,7 +45,7 @@ const CommentListBox = styled(Grid)`
 const Comment = (props) => {
   const dispatch = useDispatch();
   const { user_id, user_name, user_profile, id, post_id, contents, insert_dt } = props;
-  const uid = useSelector(state => state.user.user.uid);
+  const uid = useSelector(state => state.user.user?.user_id);
   const isMyComment = user_id === uid;
 
   return(
