@@ -12,7 +12,8 @@ const Grid = (props) => {
     height,
     padding, 
     margin, 
-    bg, 
+    bg,
+    extras,
     className,
     children,
     _onClick,
@@ -29,6 +30,7 @@ const Grid = (props) => {
     margin,
     padding,
     bg,
+    extras
   };
 
   return (
@@ -71,6 +73,7 @@ const GridBox = styled.div`
   margin: ${props => props.margin ? props.margin : null};
   box-sizing: border-box;
   background-color: ${props => props.bg ? props.bg : null};
+  ${props => props.extras}
 `;
 
 export default Grid;

@@ -3,8 +3,9 @@ import { useSelector } from "react-redux";
 import { Grid, Image, Text } from "../elements";
 import { realtime } from "../shared/firebase";
 import styled from "styled-components";
+import { history } from "../redux/configureStore";
 
-const NotiList = (props) => { 
+const NotiList = () => { 
   const user = useSelector(state => state.user.user);
   const [noti, setNoti] = useState([]);
 
@@ -24,11 +25,19 @@ const NotiList = (props) => {
         });
         setNoti(_noti_list);
       }
-    })
-    
+    })  
   },[user])
+
   return(
     <NotiBg>
+      {noti.length === 0 &&(
+      <Text 
+        size="15px"
+        color="#c4c4c4"
+      >
+        아직은 새 소식이 없습니다 :) 
+      </Text>)
+      }
       {noti.map((data, idx)=>(
         <Noti key={`NEWS_${idx}`}{...data}/>
       ))}
@@ -50,7 +59,7 @@ const NotiBg = styled.div`
 export default NotiList;
 
 const Noti = props => {
-  const { image_url, user_name, post_id, insert_dt } = props;
+  const { image_url, user_name, post_id, insert_dt} = props;
 
   return(
     <Grid 
@@ -60,6 +69,8 @@ const Noti = props => {
       margin="20px auto 0 auto"
       padding="10px"
       height="max-content"
+      _onClick={()=>{ history.replace('/feed') }}
+      extras="cursor: pointer;"
     >
       <Image src={image_url} shape="rectangle" size="100px"/>
       <Grid padding="20px">

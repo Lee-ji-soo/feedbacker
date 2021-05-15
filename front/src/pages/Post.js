@@ -17,6 +17,7 @@ const Post = (props) => {
   const is_editing = cur_post !== undefined ; 
   
   const [contents, setContents] = useState( is_editing ? cur_post.contents : "");
+  
   const src = () => {
     if(is_editing && preview === null ){
       return cur_post.image_url
@@ -54,7 +55,7 @@ const Post = (props) => {
         width={inputStyle.post.width} 
       />
       <Grid width={inputStyle.post.width} margin="20px 0">
-        <Image shape="rectangle" src={src()} />
+        <Image bgSize="cover" shape="rectangle" src={src()} />
       </Grid>
       <TextArea
         width={inputStyle.post.width}
@@ -68,7 +69,10 @@ const Post = (props) => {
             width={inputStyle.post.width}
             bg="dark"
             txt={ loading ? "WAITING..." : "UPDATE" }
-            _onClick={() => dispatch(postAction.updatePostFB(contents, cur_post_id)) }
+            _onClick={() => {
+              dispatch(postAction.updatePostFB(contents, cur_post_id))
+              console.log("POST.jS", contents);
+             }}
           />
         : <Button
             width={inputStyle.post.width}

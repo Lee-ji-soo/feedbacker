@@ -1,8 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { firestore, storage } from "../../shared/firebase";
 import { produce } from "immer";
+import { history } from "../configureStore";
 import moment from "moment";
-import { actionCreators as imageActions } from "../modules/image";
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
@@ -27,137 +27,107 @@ const initialPost = {
   insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
 };
 
-const updatePostFB = (contents = "", id) => {
-  return function (dispatch, getState, {history}){
-    dispatch(loading(true));
-    const updateRef = firestore.collection("post").doc(id);
-    const _preview = getState().image.preview;
-    if(_preview === null){
-      return updateRef
-      .update({contents})
-      .then(() => {
-        dispatch(updatePost(id, {contents}))
-        history.replace("/");
-        dispatch(loading(false));
-      })
-      .catch(err => {
-        window.alert("포스트 업데이트에 실패했습니다.");
-        console.log(err);
-        dispatch(loading(false));
-      })
-    } else{
-      const user_id = getState().user.user.uid;
-      const _upload = storage.ref(`images/${user_id}_${new Date().getTime()}`).putString(_preview, "data_url");
-      _upload.then(snapshot => {
-        snapshot.ref
-        .getDownloadURL()
-          .then(url => {
-            updateRef
-            .update({...contents, image_url: url})
-            .then(()=>{
-              dispatch(updatePost(id, {...contents, image_url:url}))
-              history.replace("/");
-              dispatch(loading(false));
-            })
-          }).catch(err => {
-            window.alert("포스트 업데이트에 실패했습니다.")
-            console.log(err)
-            dispatch(loading(false));
-          })
-        })
-      }
+const updatePostFB = (contents = "", id) => async (dispatch, getState) => {
+  dispatch(loading(true));
+  const updateRef = firestore.collection("post").doc(id);
+  const _preview = getState().image.preview;
+  if(_preview === null){
+    try{
+      updateRef.update({contents});
+      dispatch(updatePost(id, {contents}));
+      history.replace("/")
+      dispatch(loading(false));
+    }catch(err){
+      window.alert("포스트 업데이트에 실패했습니다.");
+      console.log(err);
+      dispatch(loading(false));
+    }
+  }else{
+    try{
+      const user_id = await getState().user.user.uid;
+      const _upload = await storage.ref(`images/${user_id}_${new Date().getTime()}`).putString(_preview, "data_url");
+      const url = await _upload.ref.getDownloadURL();
+      updateRef.update({...contents, image_url: url});
+      dispatch(updatePost(id, {...contents, iamge_url : url }));
+      history.replace("/");
+      dispatch(loading(false));
+    }catch(err){
+      window.alert("포스트 업데이트에 실패했습니다.")
+      console.log(err)
+      dispatch(loading(false));
+    }
   }
 }
 
-const addPostFB = (contents = "") => {
-  return function (dispatch, getState, { history }) {
-    dispatch(loading(true));
-    const postDB = firestore.collection("post");
-    const _user = getState().user.user;
-
-    const user_info = {
-      user_name: _user.user_name,
-      user_id: _user.uid,
-      user_profile: _user.user_profile,
-    };
-
-    const _post = {
-      ...initialPost,
-      contents,
-      insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
-    };
-
-    const _image = getState().image.preview;
-
-    const _upload = storage
-      .ref(`images/${user_info.user_id}_${new Date().getTime()}`)
-      .putString(_image, "data_url");
-
-    _upload.then((snapshot) => {
-      snapshot.ref
-        .getDownloadURL()
-        .then((url) => {
-          return url;
-          dispatch(loading(false));
-        })
-        .then((url) => {
-          //firebase Save Data
-          postDB
-            .add({ ...user_info, ..._post, image_url: url })
-            .then((doc) => {
-              let post = { user_info, ..._post, id: doc.id, image_url: url };
-              dispatch(addPost(post));
-              history.replace("/");
-              dispatch(imageActions.setPreview(null));
-              dispatch(loading(false));
-            })
-            .catch(err => {
-              console.log(err)
-              window.alert("포스트 작성에 실패했습니다.");
-              dispatch(loading(false));
-            });
-        })
-        .catch(err => {
-          console.log(err)
-          window.alert("이미지 업로드에 문제가 있습니다.");
-          dispatch(loading(false));
-        });
-    });
+const addPostFB = (contents = "") => async(dispatch, getState) => {
+  dispatch(loading(true));
+  const postDB = firestore.collection("post");
+  const _user = getState().user.user;
+  const user_info = {
+    user_name: _user.user_name,
+    user_id: _user.uid,
+    user_profile: _user.user_profile,
   };
+
+  const _post = {
+    ...initialPost,
+    contents,
+    insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
+  };
+
+  const _image = getState().image.preview;
+
+  try{
+    const _image_url = await storage
+      .ref(`images/${user_info.user_id}_${new Date().getTime()}`)
+      .putString(_image, "data_url")
+      .getDownloadURL();
+
+    const doc = await postDB.add({ ...user_info, ..._post, image_url: url })
+    let post = {
+      user_info, 
+      ..._post, 
+      id: doc.id,
+      image_url : _image_url
+    };
+
+    dispatch(addPost(post));
+    dispatch(loading(false));
+
+  }catch{
+    console.log(err)
+    window.alert("포스트 작성에 실패했습니다.");
+    dispatch(loading(false));
+  }
 };
 
-const getPostFB = () => {
-  return function (dispatch, getState, { history }) {
-    dispatch(loading(true));
+const getPostFB = () => async(dispatch) => {
+  dispatch(loading(true));
+  try{
     const postDB = firestore.collection("post").orderBy("insert_dt", "desc");
-    postDB.get().then((docs) => {
-      let post_list = [];
-
-      docs.forEach(doc => {
-        let _post = doc.data();
-        let post = Object.keys(_post).reduce(
-          (acc, cur) => {
-            if (cur.indexOf("user_") !== -1) {
-              //user_정보가 있다면
-              return {
-                ...acc,
-                user_info: { ...acc.user_info, [cur]: _post[cur] },
-              };
-            }
+    const docs = await postDB.get()
+    let post_list = [];
+    await docs.forEach(doc => {
+      let _post = doc.data();
+      let post = Object.keys(_post).reduce(
+        (acc, cur) => {
+          if (cur.indexOf("user_") !== -1) { //user_정보가 있다면
+            return {
+              ...acc,
+              user_info: { ...acc.user_info, [cur]: _post[cur] },
+            };
+          }else{
             return { ...acc, [cur]: _post[cur] };
-          },
-          { id: doc.id, user_info: {} }
-        );
-        post_list.push(post);
-      });
-      dispatch(setPost(post_list));
-      dispatch(loading(false));
-    }).catch(err => {
-      window.alert('포스트를 가져오는데 실패했습니다.');
-      console.log(err);
-      dispatch(loading(false));
+          }
+        },{ id: doc.id, user_info: {} });
+      post_list.push(post);
     })
-  };
+    dispatch(setPost(post_list));
+    dispatch(loading(false));
+  }catch(err){
+    console.log(err)
+  }
+  return;
 };
 
 export default handleActions(

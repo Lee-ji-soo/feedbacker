@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { history } from "../configureStore";
-import { auth } from "../../shared/firebase";
+import { auth, storage, realtime} from "../../shared/firebase";
 import firebase from "firebase/app";
 
 //actions
@@ -23,98 +23,86 @@ const initialState = {
 };
 
 //middleware actions
-const loginFB = (id, pwd) => {
-  return function (dispatch, getState, { history }) {
-    dispatch(loading(true));
-    auth
-      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => {
-        auth
-          .signInWithEmailAndPassword(id, pwd)
-          .then((user) => {
-            dispatch(
-              setUser({
-                user_name: user.user.displayName,
-                id,
-                user_profile: "",
-                uid: user.user.uid,
-              })
-            );
-            dispatch(loading(false));
-            history.push("/");
-          })
-          .catch(err => {
-            window.alert("로그인에 실패했습니다.");
-            dispatch(loading(false));
-          });
+const loginFB = (id, pwd) =>  async(dispatch) => {
+  dispatch(loading(true));
+  auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+  try{
+    const user = await auth.signInWithEmailAndPassword(id, pwd);
+    dispatch(
+      setUser({
+        user_name: user.user.displayName,
+        id,
+        user_profile: user.user.photoURL,
+        uid: user.user.uid,
       })
-      .catch(err => {
-        window.alert("로그인에 실패했습니다.");
-        dispatch(loading(false));
-      });
-  };
+    )
+    dispatch(loading(false));
+    history.push("/");
+  }catch(err){
+    window.alert(err.message);
+    console.log(err);
+    dispatch(loading(false));
+  }
 };
 
-const joinFB = (id, pwd, user_name) => {
-  return function (dispatch, getState, { history }) {
+const joinFB = (id, pwd, user_name, preview ) => async (dispatch) => {
     dispatch(loading(true));
-    auth
-      .createUserWithEmailAndPassword(id, pwd)
-      .then((user) => {
-        auth.currentUser
-          .updateProfile({
-            displayName: user_name,
-          })
-          .then(() => {
-            dispatch(
-              setUser({
-                user_name,
-                id,
-                user_profile: "",
-                uid: user.user.uid,
-              })
-            );
-            history.push("/");
-            dispatch(loading(false));
-          })
-          .catch((err) => {
-            window.alert("회원가입에 실패했습니다.");
-            dispatch(loading(false));
-          });
+    try{
+      const user = await auth.createUserWithEmailAndPassword(id, pwd);
+      const _upload = await storage
+          .ref(`images/${user.user.uid}_profile_${new Date().getTime()}`)
+          .putString(preview, "data_url");
+  
+      const _profile = await _upload.ref.getDownloadURL();
+  
+      auth.currentUser.updateProfile({
+        displayName: user_name,
+        photoURL: _profile
       })
-      .catch(err => {
-        window.alert("회원가입에 실패했습니다.");
-        dispatch(loading(false));
-      });
+
+      dispatch(
+        setUser({ 
+          user_name, 
+          id, 
+          user_profile: user.user.photoURL, 
+          uid: user.user.uid
+        })
+      )
+      history.replace("/");
+      // user id로 - noti reatimedb 생성
+      realtime.ref(`noti/${user.user.uid}`).push();
+      dispatch(loginFB(id, pwd));
+      dispatch(loading(false));
+    }catch{
+      window.alert("회원가입에 실패했습니다.");
+      console.log(err);
+      dispatch(loading(false));
+    }
+    return;
   };
+
+const loginCheckFB = () => async( dispatch ) => {
+  dispatch(loading(true));
+  auth.onAuthStateChanged(user => {
+    if(user){
+      dispatch(setUser({
+        user_name: user.displayName,
+        id: user.email,
+        uid: user.uid,
+        user_profile: user.photoURL
+      })) 
+      dispatch(loading(false));
+  }else{
+    dispatch(logOut());
+    dispatch(loading(false));
+  }})
 };
 
-const loginCheckFB = () => {
-  return function (dispatch, getState, { history }) {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        dispatch(
-          setUser({
-            user_name: user.displayName,
-            user_profile: "",
-            id: user.email,
-            uid: user.uid,
-          })
-        );
-      } else {
-        dispatch(logOut());
-      }
-    });
-  };
-};
-
-const logoutFB = () => {
-  return function (dispatch, getState, { history }) {
-    auth.signOut().then(() => {
-      dispatch(logOut());
-      history.replace("/"); //history.push('/') : 뒤로가기 했을 때 돌아간다.
-    });
-  };
+const logoutFB = () => async(dispatch) => {
+  auth.signOut();
+  dispatch(logOut());
+  history.replace("/");
+  return;
 };
 
 //reducer

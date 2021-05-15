@@ -10,14 +10,14 @@ const Design = (props) => {
     <Fragment>
       <Grid>
         <Grid is_flex justify="flex-start">
-          <Image shape="circle" src={image_url} padding={paddingStyle.right8} />
+          <Image shape="circle" src={user_info.user_profile} padding={paddingStyle.right8} />
           <Text padding={paddingStyle.right8} bold>
             {user_info.user_name}
           </Text>
           <Text>{moment(insert_dt).format("YYYY.MM.DD HH:mm")}</Text>
         </Grid>
         <Grid>
-          <Image size="550px" shape="rectangle" src={image_url} />
+          <Image bgSize="cover" size="550px" shape="rectangle" src={image_url} />
         </Grid>
         <Grid padding="16px">
           <Text align="start">{contents}</Text>

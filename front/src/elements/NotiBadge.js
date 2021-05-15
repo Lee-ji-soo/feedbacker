@@ -17,8 +17,9 @@ const NotiBadge = props => {
 
   useEffect(()=>{
     const notiDB = realtime.ref(`noti/${user_id}`);
+    
     notiDB.on("value", snapshot => {
-      setIsRead(snapshot.val().read);
+      setIsRead(snapshot?.val()?.read);
     }) 
 
     return () => notiDB.off();
@@ -29,7 +30,7 @@ const NotiBadge = props => {
       id="noti_badge"
       color="secondary" 
       variant="dot" 
-      invisible={is_read} 
+      invisible={is_read}
       onClick={notiCheck}
     >
       {props.children}

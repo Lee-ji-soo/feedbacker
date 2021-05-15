@@ -14,8 +14,9 @@ function App() {
   const dispatch = useDispatch();
   const _ssesion_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
   const is_session = sessionStorage.getItem(_ssesion_key) ? true : false;
-
+  
   useEffect(() => {
+    console.log("APP START 😝", is_session);
     if (is_session) {
       dispatch(userActions.loginCheckFB());
     }

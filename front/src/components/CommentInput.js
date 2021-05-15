@@ -5,8 +5,6 @@ import { isLogined } from "../shared/Permit";
 import { paddingStyle } from "../shared/styleUtils";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
-const log = console.log;
-
 const CommentInput = (props) => {
   const dispatch = useDispatch();
   const [comment_text, setCommentText ] = useState();
@@ -14,7 +12,6 @@ const CommentInput = (props) => {
 
   const write = e => {
     e.stopPropagation();
-    console.log(e)
     setCommentText("");
     dispatch(commentActions.addCommentFB(id, comment_text))
   }

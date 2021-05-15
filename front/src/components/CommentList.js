@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const CommentList = props => {
   const dispatch = useDispatch();
-  const { id, isMe } = props;
+  const { id } = props;
   const comment_list = useSelector(state => state.comment.list);
 
   useEffect(()=>{
@@ -30,7 +30,7 @@ const CommentList = props => {
       direction="column-reverse"
     >
       { comment_list[id].map((comment, id) => (
-        <Comment key={`COMMENT_${id}`} {...comment} isMe={isMe}/>
+        <Comment key={`COMMENT_${id}`} {...comment}/>
       ))}
     </CommentListBox>
   )
@@ -44,7 +44,9 @@ const CommentListBox = styled(Grid)`
 
 const Comment = (props) => {
   const dispatch = useDispatch();
-  const { user_name, user_profile, id, post_id, contents, insert_dt, isMe } = props;
+  const { user_id, user_name, user_profile, id, post_id, contents, insert_dt } = props;
+  const uid = useSelector(state => state.user.user.uid);
+  const isMyComment = user_id === uid;
 
   return(
     <Grid is_flex height="max-content" margin="8px 0 0 0">
@@ -59,7 +61,7 @@ const Comment = (props) => {
         </Grid>
       </Grid>
       {
-       isMe && 
+       isMyComment && 
         <Button 
           width="10%" 
           bg="white" 

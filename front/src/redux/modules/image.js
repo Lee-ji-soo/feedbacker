@@ -18,18 +18,18 @@ const initialState = {
 
 //File로 이미지 업로드하기.
 const uploadImgFB = (img) => {
-  return function (dispatch, getState, { history }) {
-    dispatch(uploading(true));
+  // return function (dispatch, getState, { history }) {
+  //   dispatch(uploading(true));
 
-    const _upload = storage.ref(`images/${img.name}`).put(img);
+  //   const _upload = storage.ref(`images/${img.name}`).put(img);
 
-    _upload.then((snapshot) => {
-      snapshot.ref.getDownloadURL().then((url) => {
-        dispatch(uploadImg(url));
-        console.log(url);
-      });
-    });
-  };
+  //   _upload.then((snapshot) => {
+  //     snapshot.ref.getDownloadURL().then((url) => {
+  //       dispatch(uploadImg(url));
+  //       console.log(url);
+  //     });
+  //   });
+  // };
 };
 
 export default handleActions(

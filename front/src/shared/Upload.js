@@ -5,11 +5,12 @@ import { Text } from "../elements";
 import styled from "styled-components";
 
 const Upload = (props) => {
+  const { width, sizeGuide, padding} = props;
   const dispatch = useDispatch();
 
-  const { width, sizeGuide } = props;
   const styles = {
     width,
+    padding
   };
 
   const inputRef = useRef();
@@ -47,12 +48,16 @@ const Upload = (props) => {
 };
 
 Upload.defaultProps = {
-  width : "",
+  width : "100%",
+  padding: "0",
   sizeGuide : "",
+  user : false,
+  post : false,
 }
 
 const InputWrap = styled.div`
-  width: ${(props) => props.width};
+  width: ${props => props.width};
+  padding : ${props => props.padding};
   label {
     display: inline-block;
     padding: 0.3em 0.75em;

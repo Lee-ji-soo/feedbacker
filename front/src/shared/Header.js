@@ -60,6 +60,7 @@ const Header = () => {
               bg={naviStyle.bg}
               size={naviStyle.size}
               fontFamily={naviStyle.fontFamily}
+              deco={location === "noti" ? "underline" : ""}
               _onClick={() => { history.push("/noti") }}
               />
           </NotiBadge>

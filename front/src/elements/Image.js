@@ -2,12 +2,13 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 
 const Image = (props) => {
-  const { shape, src, size, padding } = props;
+  const { shape, src, size, padding, bgSize } = props;
 
   const styles = {
     src,
     size,
     padding,
+    bgSize,
   };
 
   if (shape === "circle") {
@@ -28,9 +29,10 @@ const Image = (props) => {
 Image.defaultProps = {
   width: "100%",
   shape: "rectangle",
+  padding: "0",
   src: "https://1wecodereact.s3.ap-northeast-2.amazonaws.com/wishlist-blk-focus.svg",
   size: 36,
-  padding: "0",
+  bgSize: "contain",
 };
 
 const AspectOuter = styled.div`
@@ -38,14 +40,15 @@ const AspectOuter = styled.div`
   min-width: 70px;
   background-color: #f8f8f8;
 `;
+
 const AspectInner = styled.div`
   position: relative;
   overflow: hidden;
-  padding: ${(props) => props.padding};
+  padding: ${props => props.padding};
   padding-top: 70%;
   box-sizing: border-box;
-  background-image: url(${(props) => props.src});
-  background-size: contain;
+  background-image: url(${props => props.src});
+  background-size: ${props => props.bgSize};
   background-repeat: no-repeat;
   background-position: center;
 `;
@@ -54,12 +57,12 @@ const ImageCircle = styled.div`
   --size: ${(props) => props.size}px;
   width: var(--size);
   height: var(--size);
-  padding: ${(props) => props.padding};
+  padding: ${props => props.padding};
   margin: 4px;
   border-radius: var(--size);
   box-sizing: border-box;
   background-color: #c4c4c4;
-  background-image: url(${(props) => props.src});
+  background-image: url(${props => props.src});
   background-size: cover;
 `;
 
