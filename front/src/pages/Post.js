@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { Button, Grid, Image, Input, Text } from "../elements";
+import { Button, Grid, Image, Input, Text, Spinner } from "../elements";
 import { actionCreators as postAction } from "../redux/modules/post";
 import Upload from "../shared/Upload";
 import { inputStyle } from "../shared/styleUtils";
@@ -11,6 +11,7 @@ const Post = (props) => {
   const is_login = useSelector(state => state.user.is_login);
   const preview = useSelector(state => state.image.preview);
   const post_list = useSelector(state => state.post.list);
+  const loading = useSelector(state => state.post.loading);
   const cur_post_id = props.match.params.id;
   const cur_post = post_list.filter(post => {return post.id === cur_post_id})[0]
   const is_editing = cur_post !== undefined ; 
@@ -28,11 +29,26 @@ const Post = (props) => {
     }
   }
 
+  const handleAdd = () => {
+    if(contents === ""){
+      window.alert("내용을 입력해 주세요!")
+    }else if( !is_editing && preview === null ){
+      window.alert("이미지를 업로드 해주세요!")
+    }else{
+      return dispatch(postAction.addPostFB(contents)) 
+    }
+  }
+  
   if (!is_login) {
-    return <Grid marin="100px 0px" padding="16px"> 로그인 해주세요 :) </Grid>;
+    return(
+      <Grid marin="100px 0px" padding="16px">
+        <Text bold size="15px">로그인 해주세요 :)</Text>
+      </Grid>
+    );
   }
   return (
     <Grid is_flex direction="column" margin="20px 0">
+      { loading && <Spinner is_dim/> }
       <Upload
         sizeGuide="550x385"
         width={inputStyle.post.width} 
@@ -51,16 +67,23 @@ const Post = (props) => {
         ? <Button
             width={inputStyle.post.width}
             bg="dark"
-            txt="UPDATE"
+            txt={ loading ? "WAITING..." : "UPDATE" }
             _onClick={() => dispatch(postAction.updatePostFB(contents, cur_post_id)) }
           />
         : <Button
             width={inputStyle.post.width}
             bg="dark"
-            txt="UPLOAD"
-            _onClick={() => dispatch(postAction.addPostFB(contents)) }
+            txt={ loading ? "WAITING..." : "UPLOAD" }
+            _onClick={handleAdd}
           />
       }
+      <Button
+        width={inputStyle.post.width}
+        margin="10px 0 0 0"
+        bg="light"
+        txt={ loading ? "WAITING..." : "DELETE" }
+        _onClick={() => dispatch(postAction.delPostFB(cur_post_id)) }
+      />
     </Grid>
   );
 };

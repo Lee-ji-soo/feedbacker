@@ -1,6 +1,6 @@
 // PostList.js
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Input, Text, Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { emailCheck } from "../shared/utils";
@@ -8,7 +8,7 @@ import { inputStyle, paddingStyle } from "../shared/styleUtils";
 
 const Join = () => {
   const dispatch = useDispatch();
-
+  const loading = useSelector(state => state.user.loading);
   const [id, setId] = useState("");
   const [pwd, setPwd] = useState("");
   const [pwd_check, setPwdCheck] = useState("");
@@ -37,8 +37,7 @@ const Join = () => {
             size="20px"
             align="start"
             padding={paddingStyle.down10}
-          >
-            JOIN
+          >JOIN
           </Text>
         </Grid>
         <Input
@@ -47,6 +46,7 @@ const Join = () => {
           padding={paddingStyle.left8}
           padding_p={paddingStyle.down10}
           placeholder="아이디를 입력하세요."
+          value={id}
           _onChange={e => setId(e.target.value)}
         />
         <Input
@@ -55,6 +55,7 @@ const Join = () => {
           padding={paddingStyle.left8}
           padding_p={paddingStyle.down10}
           placeholder="닉네임을 입력하세요."
+          value={user_name}
           _onChange={e => setUserName(e.target.value)}
         />
         <Input
@@ -64,6 +65,7 @@ const Join = () => {
           padding_p={paddingStyle.down10}
           type="password"
           placeholder="비밀번호를 입력하세요."
+          value={pwd}
           _onChange={e => setPwd(e.target.value)}
         />
         <Input
@@ -73,12 +75,13 @@ const Join = () => {
           padding_p={paddingStyle.down10}
           type="password"
           placeholder="비밀번호를 다시 입력해주세요."
+          value={pwd_check}
           _onChange={e => setPwdCheck(e.target.value)}
         />
         <Button
           width={inputStyle.login.width}
           bg="dark"
-          txt="JOIN IN"
+          txt={loading ? "WAITING...😊" : "JOIN IN"}
           _onClick={() => join()}
         />
       </Grid>

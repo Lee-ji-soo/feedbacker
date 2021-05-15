@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Input, Text, Grid, Button } from "../elements";
-import { actionCreators as userActions } from "../redux/modules/user"; 
 import { emailCheck } from "../shared/utils";
 import { inputStyle, paddingStyle } from "../shared/styleUtils";
+import { actionCreators as userActions } from "../redux/modules/user"; 
 
 const Login = () => {
   const dispatch = useDispatch();
+  const loading = useSelector(state => state.user.loading);
   const [id, setId] = useState("");
   const [pwd, setPwd] = useState("");
 
@@ -58,7 +59,7 @@ const Login = () => {
         <Button 
           width={inputStyle.login.width}
           bg="dark" 
-          txt="LOG IN"
+          txt={ loading ? "WAITING..." : "LOG IN"}
           _onClick={login}
         />
       </Grid>

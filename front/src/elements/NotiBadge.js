@@ -13,7 +13,6 @@ const NotiBadge = props => {
     const notiDB = realtime.ref(`noti/${user_id}`);
     notiDB.update({ read: true })
     _onClick();
-
   }
 
   useEffect(()=>{

@@ -8,16 +8,13 @@ import { actionCreators as postActions } from "./post";
 const SET_COMMENT = "SET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";
 const DEL_COMMENT = "DEL_COMMENT";
-const LOADING = "LOADING";
 
 const setComment = createAction(SET_COMMENT, (post_id, comment_list) => ({post_id, comment_list}));
 const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({post_id, comment}));
 const delComment = createAction(DEL_COMMENT, (post_id, comment_id) => ({post_id, comment_id}));
-const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   list: {},
-  is_loading: false,
 };
 
 const addCommentFB = (post_id, contents) => {
@@ -128,9 +125,6 @@ export default handleActions(
     [DEL_COMMENT]: (state, action) => produce(state, draft => {
       const idx = draft.list[action.payload.post_id].findIndex(d => d.id === action.payload.comment_id);
       draft.list[action.payload.post_id].splice(idx, 1)
-    }),
-    [LOADING]: (state, action) => produce(state, draft => {
-      draft.is_loading = action.payload.is_loading;
     })
   },
   initialState

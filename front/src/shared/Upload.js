@@ -51,7 +51,7 @@ Upload.defaultProps = {
   sizeGuide : "",
 }
 
-const InputWrap = styled.p`
+const InputWrap = styled.div`
   width: ${(props) => props.width};
   label {
     display: inline-block;

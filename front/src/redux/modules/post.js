@@ -7,13 +7,16 @@ import { actionCreators as imageActions } from "../modules/image";
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const UPDATE_POST = "UPDATE_POST";
+const LOADING = "LOADING";
 
-const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
-const addPost = createAction(ADD_POST, (post) => ({ post }));
+const setPost = createAction(SET_POST, post_list => ({ post_list }));
+const addPost = createAction(ADD_POST, post => ({ post }));
 const updatePost = createAction(UPDATE_POST, (id, contents) => ({id, contents}));
+const loading = createAction(LOADING, loading => ({ loading }));
 
 const initialState = {
   list: [],
+  loading: false,
 };
 
 const initialPost = {
@@ -26,6 +29,7 @@ const initialPost = {
 
 const updatePostFB = (contents = "", id) => {
   return function (dispatch, getState, {history}){
+    dispatch(loading(true));
     const updateRef = firestore.collection("post").doc(id);
     const _preview = getState().image.preview;
     if(_preview === null){
@@ -34,9 +38,12 @@ const updatePostFB = (contents = "", id) => {
       .then(() => {
         dispatch(updatePost(id, {contents}))
         history.replace("/");
+        dispatch(loading(false));
       })
-      .catch((err)=>{
+      .catch(err => {
+        window.alert("포스트 업데이트에 실패했습니다.");
         console.log(err);
+        dispatch(loading(false));
       })
     } else{
       const user_id = getState().user.user.uid;
@@ -50,10 +57,12 @@ const updatePostFB = (contents = "", id) => {
             .then(()=>{
               dispatch(updatePost(id, {...contents, image_url:url}))
               history.replace("/");
+              dispatch(loading(false));
             })
           }).catch(err => {
-            window.alert("이미지 업로드에 문제가 있습니다.")
-            console.log(err);
+            window.alert("포스트 업데이트에 실패했습니다.")
+            console.log(err)
+            dispatch(loading(false));
           })
         })
       }
@@ -62,6 +71,7 @@ const updatePostFB = (contents = "", id) => {
 
 const addPostFB = (contents = "") => {
   return function (dispatch, getState, { history }) {
+    dispatch(loading(true));
     const postDB = firestore.collection("post");
     const _user = getState().user.user;
 
@@ -88,6 +98,7 @@ const addPostFB = (contents = "") => {
         .getDownloadURL()
         .then((url) => {
           return url;
+          dispatch(loading(false));
         })
         .then((url) => {
           //firebase Save Data
@@ -98,15 +109,18 @@ const addPostFB = (contents = "") => {
               dispatch(addPost(post));
               history.replace("/");
               dispatch(imageActions.setPreview(null));
+              dispatch(loading(false));
             })
-            .catch((err) => {
-              console.log("포스트 작성에 실패했습니다.", err);
-              console.log("포스트 작성에 실패했습니다.", err);
+            .catch(err => {
+              console.log(err)
+              window.alert("포스트 작성에 실패했습니다.");
+              dispatch(loading(false));
             });
         })
-        .catch((err) => {
+        .catch(err => {
+          console.log(err)
           window.alert("이미지 업로드에 문제가 있습니다.");
-          console.log("업로드 문제가 있습니다.", err);
+          dispatch(loading(false));
         });
     });
   };
@@ -114,13 +128,13 @@ const addPostFB = (contents = "") => {
 
 const getPostFB = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loading(true));
     const postDB = firestore.collection("post").orderBy("insert_dt", "desc");
     postDB.get().then((docs) => {
       let post_list = [];
 
       docs.forEach(doc => {
         let _post = doc.data();
-
         let post = Object.keys(_post).reduce(
           (acc, cur) => {
             if (cur.indexOf("user_") !== -1) {
@@ -137,28 +151,30 @@ const getPostFB = () => {
         post_list.push(post);
       });
       dispatch(setPost(post_list));
-    });
+      dispatch(loading(false));
+    }).catch(err => {
+      window.alert('포스트를 가져오는데 실패했습니다.');
+      console.log(err);
+      dispatch(loading(false));
+    })
   };
 };
 
 export default handleActions(
-  {
-    [SET_POST]: (state, action) =>
-      produce(state, draft => {
-        draft.list = action.payload.post_list;
-      }),
-    [ADD_POST]: (state, action) =>
-      produce(state, draft => {
-        draft.list.unshift(action.payload.post);
-      }),
-    [UPDATE_POST] : (state, action) =>
-      produce(state, draft => {
-        let idx = draft.list.findIndex( d => d.id === action.payload.id);
-        draft.list[idx] = {...draft.list[idx], ...action.payload.contents};
-      })
-  },
-  initialState
-);
+  {[SET_POST]: (state, action) => produce(state, draft => {
+      draft.list = action.payload.post_list;
+    }),
+    [ADD_POST]: (state, action) => produce(state, draft => {
+      draft.list.unshift(action.payload.post);
+    }),
+    [UPDATE_POST] : (state, action) => produce(state, draft => {
+      let idx = draft.list.findIndex( d => d.id === action.payload.id);
+      draft.list[idx] = {...draft.list[idx], ...action.payload.contents};
+    }),
+    [LOADING] : (state, action) => produce(state, draft => {
+      draft.loading = action.payload.loading;
+    })
+  }, initialState);
 
 const actionCreators = {
   setPost,

@@ -4,13 +4,14 @@ import styled from "styled-components";
 const Button = (props) => {
   const { 
     width, 
+    margin,
     bg, 
-    txt, 
-    size,
     color, 
-    deco, 
     fontFamily, 
+    deco, 
+    size,
     _onClick, 
+    txt, 
     is_float 
   } = props;
 
@@ -18,7 +19,7 @@ const Button = (props) => {
     return <FloatBtn onClick={_onClick}>{txt}</FloatBtn>;
   }
 
-  const styles = { width, bg, size, deco, color, fontFamily };
+  const styles = { width, bg, margin, size, deco, color, fontFamily };
   return (
     <Btn onClick={_onClick} {...styles}>
       {txt}
@@ -28,12 +29,13 @@ const Button = (props) => {
 
 Button.defaultProps = {
   width: "100%",
+  margin: "0",
   bg: "light" | "dark" | "white",
-  txt: "",
-  size: "",
   color: "",
-  deco: "none",
   fontFamily: "",
+  size: "",
+  deco: "none",
+  txt: "",
   _onClick: () => {},
   is_float: false,
 };
@@ -56,16 +58,17 @@ const BG = (bg) => {
 };
 
 const Btn = styled.button`
-  width: ${(props) => props.width};
+  width: ${props => props.width};
   height: 40px;
-  ${(props) => BG(props.bg)}
+  margin: ${props => props.margin};
+  ${props => BG(props.bg)}
   color: ${props => props.color};
   border: none;
   box-sizing: border-box;
   cursor: pointer;
-  text-decoration: ${(props) => props.deco};
-  font-size: ${(props) => props.size};
-  font-family: ${(props) => props.fontFamily}, sans-serif;
+  text-decoration: ${props => props.deco};
+  font-size: ${props => props.size};
+  font-family: ${props => props.fontFamily}, sans-serif;
 `;
 
 const FloatBtn = styled.button`
