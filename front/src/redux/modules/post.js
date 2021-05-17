@@ -82,7 +82,7 @@ const addPostFB = (contents = "") => async(dispatch, getState) => {
     const storage_ref = storage.ref();
     const image_ref = await storage_ref.child(`images/${user_info.user_id}_${new Date().getTime()}`)
       .putString(_image, "data_url")
-      .then(snapshot=>{console.log(snapshot); return snapshot});
+      .then(snapshot=>{ return snapshot });
     const _image_url = await image_ref.ref.getDownloadURL().then(url=> {return url})
 
     const doc = postDB.add({ ...user_info, ..._post, image_url: _image_url })

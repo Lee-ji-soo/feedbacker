@@ -71,7 +71,6 @@ const Post = (props) => {
             txt={ loading ? "WAITING..." : "UPDATE" }
             _onClick={() => {
               dispatch(postAction.updatePostFB(contents, cur_post_id))
-              console.log("POST.jS", contents);
              }}
           />
         : <Button

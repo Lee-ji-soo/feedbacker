@@ -16,7 +16,7 @@ function App() {
   const is_session = sessionStorage.getItem(_ssesion_key) ? true : false;
   
   useEffect(() => {
-    console.log("APP START 😝", is_session);
+    console.log("APP START");
     if (is_session) {
       dispatch(userActions.loginCheckFB());
     }

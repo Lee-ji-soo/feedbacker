@@ -21,7 +21,6 @@ const initialState = {
 const addCommentFB = (post_id, contents) => async(dispatch, getState) => {
   const commentDB = firestore.collection("comment");
   const user_info = getState().user.user;
-  console.log(user_info);
 
   let comment = {
     post_id,
