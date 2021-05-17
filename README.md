@@ -14,7 +14,8 @@ Feedback for designers
 
 1. login
 - firebase auth를 통한 로그인
-- 브라우저 저장소 session 을 확인 후 헤더 변경할 수 있습니다.
+- 브라우저 저장소 session으로 로그인 여부를 확인합니다.
+- 로그인 시 헤더가 변경됩니다.
 <img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/login.gif'/>
 <br><br>
 
@@ -27,13 +28,13 @@ Feedback for designers
 
 3. comment
 - firebase cloud store 댓글 DB
-- 자신이 남긴 댓글만 삭제할 수 있는 기능입니다.
+- 자신이 남긴 댓글만 삭제할 수 있습니다.
 <img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/comment.gif'/>
 <br><br>
 
 4. noti
 - firebase real time data base 실시간 데이터베이스
-- 자신의 글에 남긴 댓글에 대한 노티를 받을 수 있습니다.
+- 자신의 글에 남겨진 댓글알림을 실시간으로 받을 수 있습니다.
 <img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/noti.gif'/>
 <br><br>
 
@@ -49,6 +50,4 @@ Feedback for designers
 ## 간략 기획
 <img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb1.jpg'/>
 <img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb2.jpg'/>
-<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb3.jpg'/>
-<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb4.jpg'/>
 <br><br>
