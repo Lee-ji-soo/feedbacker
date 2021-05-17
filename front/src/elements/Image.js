@@ -2,13 +2,14 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 
 const Image = (props) => {
-  const { shape, src, size, padding, bgSize } = props;
+  const { shape, src, size, padding, bgSize, border } = props;
 
   const styles = {
     src,
     size,
     padding,
     bgSize,
+    border
   };
 
   if (shape === "circle") {
@@ -33,6 +34,7 @@ Image.defaultProps = {
   src: "https://1wecodereact.s3.ap-northeast-2.amazonaws.com/wishlist-blk-focus.svg",
   size: 36,
   bgSize: "contain",
+  border: "none"
 };
 
 const AspectOuter = styled.div`
@@ -59,11 +61,13 @@ const ImageCircle = styled.div`
   height: var(--size);
   padding: ${props => props.padding};
   margin: 4px;
+  border : ${props => props.border};
   border-radius: var(--size);
   box-sizing: border-box;
   background-color: #c4c4c4;
   background-image: url(${props => props.src});
   background-size: cover;
+  background-position: center;
 `;
 
 export default Image;

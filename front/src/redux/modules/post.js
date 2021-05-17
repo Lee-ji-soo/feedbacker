@@ -63,6 +63,7 @@ const addPostFB = (contents = "") => async(dispatch, getState) => {
   dispatch(loading(true));
   const postDB = firestore.collection("post");
   const _user = getState().user.user;
+
   const user_info = {
     user_name: _user.user_name,
     user_id: _user.uid,
@@ -78,12 +79,13 @@ const addPostFB = (contents = "") => async(dispatch, getState) => {
   const _image = getState().image.preview;
 
   try{
-    const _image_url = await storage
-      .ref(`images/${user_info.user_id}_${new Date().getTime()}`)
+    const storage_ref = storage.ref();
+    const image_ref = await storage_ref.child(`images/${user_info.user_id}_${new Date().getTime()}`)
       .putString(_image, "data_url")
-      .getDownloadURL();
+      .then(snapshot=>{console.log(snapshot); return snapshot});
+    const _image_url = await image_ref.ref.getDownloadURL().then(url=> {return url})
 
-    const doc = await postDB.add({ ...user_info, ..._post, image_url: url })
+    const doc = postDB.add({ ...user_info, ..._post, image_url: _image_url })
     let post = {
       user_info, 
       ..._post, 
@@ -93,8 +95,8 @@ const addPostFB = (contents = "") => async(dispatch, getState) => {
 
     dispatch(addPost(post));
     dispatch(loading(false));
-
-  }catch{
+    history.push("/");
+  }catch(err){
     console.log(err)
     window.alert("포스트 작성에 실패했습니다.");
     dispatch(loading(false));

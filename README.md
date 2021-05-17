@@ -5,6 +5,7 @@ Feedback for designers
 ## tools
 - Language: React, Typescript, Nodejs <br>
 - library : styled-components
+- tool : firebase ( cloud store, storage, realtime Database )
 - plugin : FacebookLogin <br>
 - DB : AWS <br>
 <br><br>
@@ -14,18 +15,8 @@ Feedback for designers
 <img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb2.jpg'/>
 <img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb3.jpg'/>
 <img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb4.jpg'/>
-<img src='https://raw.githubusercontent.com/Lee-ji-soo/feedbacker/main/readme/fb5.jpg'/>
 <br><br>
 
 ## 완성 페이지
 <img src=''>
 <br><br>
-
-### 1. Header 
-  - [ ]
-
-### 2. Container
-  - [ ]
-
-### 3. Footer 
-  - [ ]

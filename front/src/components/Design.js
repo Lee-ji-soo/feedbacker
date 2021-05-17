@@ -7,23 +7,25 @@ const Design = (props) => {
   const { user_info, contents, image_url, insert_dt } = props;
 
   return (
-    <Fragment>
-      <Grid>
+    <Grid>
+      <Grid is_flex padding="0 0 8px 0">
         <Grid is_flex justify="flex-start">
-          <Image shape="circle" src={user_info.user_profile} padding={paddingStyle.right8} />
+          <Image border="1px solid #999" shape="circle" src={user_info.user_profile} padding={paddingStyle.right8} />
           <Text padding={paddingStyle.right8} bold>
             {user_info.user_name}
           </Text>
-          <Text>{moment(insert_dt).format("YYYY.MM.DD HH:mm")}</Text>
         </Grid>
-        <Grid>
-          <Image bgSize="cover" size="550px" shape="rectangle" src={image_url} />
-        </Grid>
-        <Grid padding="16px">
-          <Text align="start">{contents}</Text>
+        <Grid is_flex justify="flex-end">
+          <Text size="13px" color="#c4c4c4">{moment(insert_dt).format("YYYY.MM.DD HH:mm")}</Text>
         </Grid>
       </Grid>
-    </Fragment>
+      <Grid>
+        <Image bgSize="cover" size="550px" shape="rectangle" src={image_url} />
+      </Grid>
+      <Grid padding="16px">
+        <Text align="start">{contents}</Text>
+      </Grid>
+    </Grid>
   );
 };
 
