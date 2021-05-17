@@ -33,8 +33,8 @@ const updatePostFB = (contents = "", id) => async (dispatch, getState) => {
   const _preview = getState().image.preview;
   if(_preview === null){
     try{
-      updateRef.update({contents});
-      dispatch(updatePost(id, {contents}));
+      updateRef.update({ contents });
+      dispatch(updatePost(id, { contents }));
       history.replace("/")
       dispatch(loading(false));
     }catch(err){
@@ -44,11 +44,11 @@ const updatePostFB = (contents = "", id) => async (dispatch, getState) => {
     }
   }else{
     try{
-      const user_id = await getState().user.user.uid;
+      const user_id = getState().user.user.uid;
       const _upload = await storage.ref(`images/${user_id}_${new Date().getTime()}`).putString(_preview, "data_url");
-      const url = await _upload.ref.getDownloadURL();
-      updateRef.update({...contents, image_url: url});
-      dispatch(updatePost(id, {...contents, iamge_url : url }));
+      const url = _upload.ref.getDownloadURL();
+      updateRef.update({ contents, image_url: url});
+      dispatch(updatePost(id, { contents, iamge_url : url }));
       history.replace("/");
       dispatch(loading(false));
     }catch(err){
@@ -109,7 +109,7 @@ const getPostFB = () => async(dispatch) => {
     const postDB = firestore.collection("post").orderBy("insert_dt", "desc");
     const docs = await postDB.get()
     let post_list = [];
-    await docs.forEach(doc => {
+    docs.forEach(doc => {
       let _post = doc.data();
       let post = Object.keys(_post).reduce(
         (acc, cur) => {
@@ -124,7 +124,7 @@ const getPostFB = () => async(dispatch) => {
         },{ id: doc.id, user_info: {} });
       post_list.push(post);
     })
-    dispatch(setPost(post_list));
+    await dispatch(setPost(post_list));
     dispatch(loading(false));
   }catch(err){
     console.log(err)

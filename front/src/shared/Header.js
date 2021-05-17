@@ -24,6 +24,7 @@ const Header = () => {
   });
   
   useEffect(()=>{
+    console.log(location);
     setLocation(location);
   },[])
 
@@ -38,7 +39,7 @@ const Header = () => {
             bg={naviStyle.bg}
             size={naviStyle.size}
             fontFamily={naviStyle.fontFamily}
-            deco={location === "feed" || location === "" 
+            deco={location === "feed"|| location === "" 
               ? "underline" 
               : ""
             }
@@ -80,7 +81,7 @@ const Header = () => {
             bg={naviStyle.bg}
             size={naviStyle.size}
             fontFamily={naviStyle.fontFamily}
-            deco={location === "feed" ? "underline" : ""}
+            deco={location === "feed" || location === "" ? "underline" : ""}
             _onClick={() => { history.push("/feed"); }}
           />
           <Button

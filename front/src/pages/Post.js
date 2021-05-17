@@ -86,7 +86,6 @@ const Post = (props) => {
         margin="10px 0 0 0"
         bg="light"
         txt={ loading ? "WAITING..." : "DELETE" }
-        _onClick={() => dispatch(postAction.delPostFB(cur_post_id)) }
       />
     </Grid>
   );

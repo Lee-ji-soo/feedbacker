@@ -81,7 +81,7 @@ const joinFB = (id, pwd, user_name, preview ) => async (dispatch) => {
     return;
   };
 
-const loginCheckFB = () => async( dispatch ) => {
+const loginCheckFB = () => ( dispatch ) => {
   dispatch(loading(true));
   auth.onAuthStateChanged(user => {
     if(user){
