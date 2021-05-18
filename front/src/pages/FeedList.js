@@ -19,7 +19,9 @@ const FeedList = (props) => {
       <Helmet>
         <title>feedbacker</title>
         <meta property="og:title" content="og page feedbacker"/>
-        <meta property="og:description" content="feed for designer"/>
+        <meta property="og:description" content="feed for designer, 디자인 솔직 리뷰. 디자이너를 위한 피드백, 고객의 소리."/>
+        <meta name="robots" content="index,follow" />
+        <meta name="keywords" content="피드백, 디자이너, 디자인, 리뷰, 솔직, 후기, 고객의소리, 디자인반영, 디자인피드백, 크리틱" />
         <meta property="og:image" content=""/>
       </Helmet>
       <Grid padding="30px 0">
