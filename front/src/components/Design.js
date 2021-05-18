@@ -3,7 +3,7 @@ import { Grid, Image, Text } from "../elements";
 import { paddingStyle } from "../shared/styleUtils";
 import moment from "moment";
 
-const Design = (props) => {
+const Design = memo((props) => {
   const { user_info, contents, image_url, insert_dt } = props;
 
   return (
@@ -27,7 +27,7 @@ const Design = (props) => {
       </Grid>
     </Grid>
   );
-};
+});
 
 Design.defaultProps = {
   user_info: {

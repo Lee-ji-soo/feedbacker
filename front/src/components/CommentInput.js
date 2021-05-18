@@ -5,7 +5,7 @@ import { isLogined } from "../shared/Permit";
 import { paddingStyle } from "../shared/styleUtils";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
-const CommentInput = (props) => {
+const CommentInput = memo((props) => {
   const dispatch = useDispatch();
   const [comment_text, setCommentText ] = useState();
   const { id } = props;
@@ -43,7 +43,7 @@ const CommentInput = (props) => {
       />
     </Grid>
   )
-};
+});
 
 CommentInput.defaultProps = {};
 

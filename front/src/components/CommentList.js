@@ -42,7 +42,7 @@ const CommentListBox = styled(Grid)`
   }
 `
 
-const Comment = (props) => {
+const Comment = memo((props) => {
   const dispatch = useDispatch();
   const { user_id, user_name, user_profile, id, post_id, contents, insert_dt } = props;
   const uid = useSelector(state => state.user.user?.uid);
@@ -72,7 +72,7 @@ const Comment = (props) => {
       }
     </Grid>
   )
-};
+});
 
 Comment.defaultProps = {
   user_name: "soo",
