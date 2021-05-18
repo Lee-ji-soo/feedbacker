@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import Design from "./Design";
 import CommentList from "./CommentList";
 import CommentInput from "./CommentInput";
@@ -6,7 +6,7 @@ import { Grid, Button } from "../elements";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
-const Feed = (props) => {
+const Feed = memo((props) => {
   const { id, isMe } = props;
   return(
     <Grid is_flex align="flex-end" padding="0 0 100px 0">
@@ -37,7 +37,7 @@ const Feed = (props) => {
       </Grid>
     </Grid>
   )
-};
+});
 
 const FixBtn = styled.div`
   position: absolute;

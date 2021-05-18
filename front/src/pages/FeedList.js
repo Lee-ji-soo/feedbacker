@@ -5,7 +5,7 @@ import { Feed } from "../components";
 import { actionCreators as postAction } from "../redux/modules/post";
 import { Helmet } from "react-helmet";
 
-const FeedList = (props) => {
+const FeedList = () => {
   const dispatch = useDispatch();
   const feed_list = useSelector(state => state.post.list);
   const user_info = useSelector(state => state.user.user);
