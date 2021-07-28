@@ -2,7 +2,7 @@
 Feedback for designers
 
 ## tools
-- Language: React, Typescript, Nodejs <br>
+- Language: React <br>
 - library : styled-components
 - tool : firebase ( cloud store, storage, realtime Database )
 - plugin : FacebookLogin <br>
