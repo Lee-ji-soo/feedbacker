@@ -1,6 +1,5 @@
 # FeedBacker ↓↓↓↓↓↓↓ Please look at the contents below.
 Feedback for designers
-<a href="https://www.feedbacker.club/">www.feedbacker.club</a>
 
 ## tools
 - Language: React, Typescript, Nodejs <br>
