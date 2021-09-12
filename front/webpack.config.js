@@ -21,13 +21,13 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: "babel-loader",
+        loader: "ts-loader",
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: ["*", ".js", "jsx", ".ts", ".tsx"],
+    extensions: ["*", ".js", ".jsx", ".ts", ".tsx", ".css", ".scss", '.json'],
   },
   output: {
     path: __dirname + "/dist",

@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "jsx": "react"
+  },
+  "complierOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "esnext",
+    "sourceMap": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "checkJS": true, //: @tsCheck
+    "noImplicitAny": true, // 기본적으로 any라도 넣어야 한다.
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": "./src"
+  },
+  "include": [
+    "src",
+    "./src/**/*",
+    "./src/**/*.ts*"
+  ]
+}
+// https://www.typescriptlang.org/tsconfig refernece를 찾아보면 많이 나옵니다.
+// https://www.typescriptlang.org/play?#code/ playground에서 ts -> js 자동 컴파일 해줌

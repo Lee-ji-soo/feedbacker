@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import * as React from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
@@ -6,9 +7,9 @@ import { history } from "../redux/configureStore";
 import { Grid, Button } from "../elements";
 import Header from "./Header";
 import { Login, Join, FeedList, Post, NotiList  } from "../pages";
-import { apiKey } from "../shared/firebase";
+import { apiKey } from "../utils/firebaseUtils";
 import { actionCreators as userActions } from "../redux/modules/user";
-import Permit from "./Permit";
+import Permit from "../components/common/Permit";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +17,6 @@ function App() {
   const is_session = sessionStorage.getItem(_ssesion_key) ? true : false;
   
   useEffect(() => {
-    console.log("APP START");
     if (is_session) {
       dispatch(userActions.loginCheckFB());
     }
