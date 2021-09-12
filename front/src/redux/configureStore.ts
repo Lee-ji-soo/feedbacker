@@ -2,8 +2,8 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
-
-import User from "./modules/user";
+import { composeWithDevTools } from "redux-devtools-extension";
+import User from "./modules/users";
 import Post from "./modules/post";
 import Image from "./modules/image";
 import Comment from "./modules/comment";
@@ -18,22 +18,20 @@ const rootReducer = combineReducers({
   router: connectRouter(history),
 });
 
-const middlewares = [thunk.withExtraArgument({ history: history })];
 
 const env = process.env.NODE_ENV;
+
+const middlewares = typeof window === "object" && env === "development"
+    ? [composeWithDevTools(applyMiddleware(thunk.withExtraArgument({ history: history })))]
+    : [applyMiddleware(thunk.withExtraArgument({ history: history }))];
+
 
 if (env === "development") {
   const { logger } = require("redux-logger");
   middlewares.push(logger);
 }
 
-const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && env === 'development' 
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
+let store = () => createStore(rootReducer, compose(...middlewares));
 
-const enhancer = composeEnhancers(applyMiddleware(...middlewares));
-
-let store = (initialStore) => createStore(rootReducer, enhancer);
-
+export type RootState = ReturnType<typeof rootReducer>;
 export default store();

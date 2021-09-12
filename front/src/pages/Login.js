@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Text, Grid, Button } from "../elements";
 import { emailCheck } from "../shared/utils";
-import { inputStyle, paddingStyle } from "../shared/styleUtils";
+import { inputStyle, paddingStyle } from "../utils/styleUtils";
 import { actionCreators as userActions } from "../redux/modules/user"; 
 
 const Login = () => {

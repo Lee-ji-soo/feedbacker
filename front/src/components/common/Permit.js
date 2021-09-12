@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { apiKey } from "./firebase";
+import { apiKey } from "../../utils/firebaseUtils";
 
 const Permit = (props) => {
   if(isLogined()){

@@ -1,5 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
-import { firestore, storage } from "../../shared/firebase";
+import { firestore, storage } from "../../firebase";
 import { produce } from "immer";
 import { history } from "../configureStore";
 import moment from "moment";

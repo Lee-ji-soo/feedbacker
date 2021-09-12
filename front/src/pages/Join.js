@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input, Image, Text, Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { emailCheck } from "../shared/utils";
-import { inputStyle, paddingStyle } from "../shared/styleUtils";
+import { inputStyle, paddingStyle } from "../utils/styleUtils";
 import Upload from "../shared/Upload";
 const emptyProfile = "https://firebasestorage.googleapis.com/v0/b/imgcommunity-46e15.appspot.com/o/images%2Fprofile.jpg?alt=media&token=457004c6-3282-4fb2-9052-ea1b1a6dd7c9"
 

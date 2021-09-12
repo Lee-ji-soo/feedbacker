@@ -1,23 +1,25 @@
-import React, { useRef } from "react";
+import * as React from "react";
+import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 import { Text } from "../elements";
 import styled from "styled-components";
 
 const Upload = (props) => {
-  const { width, sizeGuide, padding} = props;
+  const { width, sizeGuide, padding } = props;
   const dispatch = useDispatch();
 
   const styles = {
     width,
-    padding
+    padding,
   };
 
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
   const is_uploading = useSelector((state) => state.image.uploading);
 
   const selectFile = () => {
     const reader = new FileReader();
+    if (!inputRef.current) return;
     const file = inputRef.current.files[0];
 
     reader.readAsDataURL(file);
@@ -28,13 +30,9 @@ const Upload = (props) => {
 
   return (
     <InputWrap {...styles}>
-      <label htmlFor="input_file">file upload  +</label>
-      <Text
-        align="start" 
-        size="13px" 
-        color="#c4c4c4"
-        padding="5px 0 0 0"
-      >{props.sizeGuide}사이즈를 권장합니다 :)
+      <label htmlFor="input_file">file upload +</label>
+      <Text align="start" size="13px" color="#c4c4c4" padding="5px 0 0 0">
+        {props.sizeGuide}사이즈를 권장합니다 :)
       </Text>
       <input
         ref={inputRef}
@@ -48,16 +46,16 @@ const Upload = (props) => {
 };
 
 Upload.defaultProps = {
-  width : "100%",
+  width: "100%",
   padding: "0",
-  sizeGuide : "",
-  user : false,
-  post : false,
-}
+  sizeGuide: "",
+  user: false,
+  post: false,
+};
 
 const InputWrap = styled.div`
-  width: ${props => props.width};
-  padding : ${props => props.padding};
+  width: ${(props) => props.width};
+  padding: ${(props) => props.padding};
   label {
     display: inline-block;
     padding: 0.3em 0.75em;

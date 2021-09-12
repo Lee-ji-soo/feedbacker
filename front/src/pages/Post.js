@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Button, Grid, Image, Input, Text, Spinner } from "../elements";
 import { actionCreators as postAction } from "../redux/modules/post";
 import Upload from "../shared/Upload";
-import { inputStyle } from "../shared/styleUtils";
+import { inputStyle } from "../utils/styleUtils";
 
 const Post = (props) => {
   const dispatch = useDispatch();

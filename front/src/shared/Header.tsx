@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Button, NotiBadge } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configureStore";
-import { apiKey } from "./firebase";
+import { apiKey } from "../firebase";
 import styled from "styled-components";
-import { naviStyle } from "../shared/styleUtils";
+import { naviStyle } from "../utils/styleUtils";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -14,35 +15,34 @@ const Header = () => {
   const is_login = useSelector((state) => state.user.is_login);
   const _ssesion_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
   const is_session = sessionStorage.getItem(_ssesion_key) ? true : false;
-  
+
   //location
   const [location, setLocation] = useState(history.location.pathname.substr(1));
-  
+
   history.listen(() => {
     const curLocation = history.location.pathname.substr(1);
     setLocation(curLocation);
   });
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     setLocation(location);
-  },[])
+  }, []);
 
   return (
     <>
       <H1>FEEDBACKER</H1>
-      {is_login && is_session 
-      ? (<Grid is_flex justify="center" padding="16px">
+      {is_login && is_session ? (
+        <Grid is_flex justify="center" padding="16px">
           <Button
             width={naviStyle.width}
             txt="FEED"
             bg={naviStyle.bg}
             size={naviStyle.size}
             fontFamily={naviStyle.fontFamily}
-            deco={location === "feed"|| location === "" 
-              ? "underline" 
-              : ""
-            }
-            _onClick={() => { history.push("/feed"); }}
+            deco={location === "feed" || location === "" ? "underline" : ""}
+            _onClick={() => {
+              history.push("/feed");
+            }}
           />
           <Button
             width={naviStyle.width}
@@ -51,7 +51,9 @@ const Header = () => {
             size={naviStyle.size}
             fontFamily={naviStyle.fontFamily}
             deco={location === "post" ? "underline" : ""}
-            _onClick={() => { history.push("/post"); }}
+            _onClick={() => {
+              history.push("/post");
+            }}
           />
           <NotiBadge>
             <Button
@@ -61,8 +63,10 @@ const Header = () => {
               size={naviStyle.size}
               fontFamily={naviStyle.fontFamily}
               deco={location === "noti" ? "underline" : ""}
-              _onClick={() => { history.push("/noti") }}
-              />
+              _onClick={() => {
+                history.push("/noti");
+              }}
+            />
           </NotiBadge>
           <Button
             width={naviStyle.width}
@@ -70,10 +74,13 @@ const Header = () => {
             bg={naviStyle.bg}
             size={naviStyle.size}
             fontFamily={naviStyle.fontFamily}
-            _onClick={() => { dispatch(userActions.logoutFB()) }}
+            _onClick={() => {
+              dispatch(userActions.logoutFB());
+            }}
           />
-        </Grid>) 
-      : (<Grid is_flex justify="center" padding="16px">
+        </Grid>
+      ) : (
+        <Grid is_flex justify="center" padding="16px">
           <Button
             width={naviStyle.width}
             txt="FEED"
@@ -81,7 +88,9 @@ const Header = () => {
             size={naviStyle.size}
             fontFamily={naviStyle.fontFamily}
             deco={location === "feed" || location === "" ? "underline" : ""}
-            _onClick={() => { history.push("/feed"); }}
+            _onClick={() => {
+              history.push("/feed");
+            }}
           />
           <Button
             width={naviStyle.width}
@@ -90,7 +99,9 @@ const Header = () => {
             size={naviStyle.size}
             fontFamily={naviStyle.fontFamily}
             deco={location === "login" ? "underline" : ""}
-            _onClick={() => { history.push("/login"); }}
+            _onClick={() => {
+              history.push("/login");
+            }}
           />
           <Button
             width={naviStyle.width}
@@ -99,9 +110,12 @@ const Header = () => {
             size={naviStyle.size}
             fontFamily={naviStyle.fontFamily}
             deco={location === "join" ? "underline" : ""}
-            _onClick={() => { history.push("/join"); }}
+            _onClick={() => {
+              history.push("/join");
+            }}
           />
-        </Grid>)}
+        </Grid>
+      )}
     </>
   );
 };

@@ -1,9 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import firebase from "firebase/app";
-import { firestore, realtime } from "../../shared/firebase";
-import moment from "moment";
-import { history } from "../configureStore";
+import { firestore, realtime } from "../../firebase";
+import * as moment from "moment";
 import { actionCreators as postActions } from "./post";
 
 const SET_COMMENT = "SET_COMMENT";
@@ -29,6 +28,7 @@ const addCommentFB = (post_id, contents) => async(dispatch, getState) => {
     user_profile: user_info.user_profile,
     contents,
     insert_dt: moment().format("YYYY-MM-DD HH:mm"),
+    id: "",
   }
 
   try{

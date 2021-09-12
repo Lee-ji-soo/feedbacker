@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Grid, Image, Text } from "../elements";
-import { paddingStyle } from "../shared/styleUtils";
+import { paddingStyle } from "../utils/styleUtils";
 import moment from "moment";
 
 const Design = memo((props) => {

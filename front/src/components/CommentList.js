@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Image, Text, Button } from "../elements";
-import { paddingStyle, commentStyle } from "../shared/styleUtils";
+import { paddingStyle, commentStyle } from "../utils/styleUtils";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import styled from "styled-components";
 

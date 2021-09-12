@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Badge } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { realtime } from "../shared/firebase";
+import { realtime } from "../firebase";
 
 const NotiBadge = props => {
   const user_id = useSelector(state => state.user.user.uid); 

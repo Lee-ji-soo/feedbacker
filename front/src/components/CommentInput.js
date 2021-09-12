@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Grid, Input, Button } from "../elements";
 import { isLogined } from "../shared/Permit";
-import { paddingStyle } from "../shared/styleUtils";
+import { paddingStyle } from "../utils/styleUtils";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const CommentInput = memo((props) => {
