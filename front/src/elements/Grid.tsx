@@ -1,17 +1,34 @@
-import React, { Fragment } from "react";
+import * as React from "react";
+import { Fragment } from "react";
 import styled from "styled-components";
 
-const Grid = (props) => {
-  const { 
+interface GridProps {
+  is_flex?: boolean;
+  justify?: "space-between" | "flex-start" | "flex-end" | "space-around";
+  align?: "center" | "start" | "end";
+  direction?: "row" | "column";
+  position?: "absolute" | "fixed" | "sticky";
+  width?: string;
+  height?: string;
+  padding?: string;
+  margin?: string;
+  bg?: boolean;
+  extras?: string;
+  className?: string;
+  children: React.ReactNode;
+  _onClick?: () => void;
+}
+const Grid = (props: GridProps) => {
+  const {
     is_flex,
     justify,
     align,
     direction,
     position,
-    width, 
+    width,
     height,
-    padding, 
-    margin, 
+    padding,
+    margin,
     bg,
     extras,
     className,
@@ -30,29 +47,16 @@ const Grid = (props) => {
     margin,
     padding,
     bg,
-    extras
+    extras,
   };
 
   return (
     <Fragment>
-      <GridBox onClick={_onClick} className={className} {...styles}>{children}</GridBox>
+      <GridBox onClick={_onClick} className={className} {...styles}>
+        {children}
+      </GridBox>
     </Fragment>
   );
-};
-
-Grid.defaultProps = {
-  is_flex: false,
-  justify: "space-between",
-  align: "center", 
-  direction: "row",
-  position:"",
-  width: "100%",
-  height: "100%",
-  padding: false,
-  margin: "0 auto",
-  bg: false,
-  children: null,
-  _onClick: () => {}
 };
 
 const GridBox = styled.div`

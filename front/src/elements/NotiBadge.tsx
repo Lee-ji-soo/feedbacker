@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Badge } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { realtime } from "../firebase";
 
-const NotiBadge = props => {
+interface NotiBadgeProps {
+  _onClick : () => void;
+  children: React.ReactNode;
+}
+ 
+const NotiBadge = (props: NotiBadgeProps) => {
   const user_id = useSelector(state => state.user.user.uid); 
   const { _onClick } = props
   const [is_read, setIsRead] = useState(true);

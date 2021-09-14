@@ -1,11 +1,17 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 
-const Spinner = (props) => {
-  const { type, size, is_dim } = props;
+interface SpinnerProps {
+  type: "inline" | "page";
+  is_transparent: boolean;
+  size: number;
+}
+
+const Spinner = (props: SpinnerProps) => {
+  const { type, size, is_transparent } = props;
 
   return (
-    <SpinnerWrap type={type} is_dim={is_dim}>
+    <SpinnerWrap type={type} is_transparent={is_transparent}>
       <SpinnerSvg size={size} />
     </SpinnerWrap>
   );
@@ -13,11 +19,11 @@ const Spinner = (props) => {
 
 Spinner.defaultProps = {
   type: "inline", // inline, page
-  is_dim: false,
+  is_transparent: false,
   size: 60,
 };
 
-const SpinnerWrap = styled.div`
+const SpinnerWrap = styled.div<SpinnerProps>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -33,7 +39,7 @@ const SpinnerWrap = styled.div`
         zIndex: 9999;`
       : ``}
   ${(props) =>
-    props.is_dim
+    props.is_transparent
       ? `
      background: rgba(255,255,255,0.4); 
      height: 100vh;
@@ -41,7 +47,7 @@ const SpinnerWrap = styled.div`
       : ``}
 `;
 
-const SpinnerSvg = styled.div`
+const SpinnerSvg = styled.div<{ size: number }>`
   --size: ${(props) => props.size}px;
   width: var(--size);
   height: var(--size);

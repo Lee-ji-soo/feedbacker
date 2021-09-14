@@ -8,7 +8,7 @@ import { Grid, Button } from "../elements";
 import Header from "./Header";
 import { Login, Join, FeedList, Post, NotiList } from "../pages";
 import { apiKey } from "../firebase";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../redux/modules/users";
 import Permit from "../components/common/Permit";
 
 function App() {

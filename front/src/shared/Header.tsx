@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Button, NotiBadge } from "../elements";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../redux/modules/users";
 import { history } from "../redux/configureStore";
 import { apiKey } from "../firebase";
 import styled from "styled-components";

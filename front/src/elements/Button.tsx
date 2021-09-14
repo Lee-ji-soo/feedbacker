@@ -1,18 +1,31 @@
-import React from "react";
+import * as React from "react";
 import styled from "styled-components";
 
-const Button = (props) => {
-  const { 
-    width, 
+interface ButtonProps {
+  width: string;
+  margin: string;
+  bg: "ligth" | "dark" | "white";
+  color: string;
+  fontFamily: string;
+  size: string;
+  deco: "none";
+  txt: string;
+  _onClick: () => void;
+  is_float: boolean;
+}
+
+const Button = (props: ButtonProps) => {
+  const {
+    width,
     margin,
-    bg, 
-    color, 
-    fontFamily, 
-    deco, 
+    bg,
+    color,
+    fontFamily,
+    deco,
     size,
-    _onClick, 
-    txt, 
-    is_float 
+    _onClick,
+    txt,
+    is_float,
   } = props;
 
   if (is_float) {
@@ -25,19 +38,6 @@ const Button = (props) => {
       {txt}
     </Btn>
   );
-};
-
-Button.defaultProps = {
-  width: "100%",
-  margin: "0",
-  bg: "light" | "dark" | "white",
-  color: "",
-  fontFamily: "",
-  size: "",
-  deco: "none",
-  txt: "",
-  _onClick: () => {},
-  is_float: false,
 };
 
 const BG = (bg) => {
@@ -58,17 +58,17 @@ const BG = (bg) => {
 };
 
 const Btn = styled.button`
-  width: ${props => props.width};
+  width: ${(props) => props.width};
   height: 40px;
-  margin: ${props => props.margin};
-  ${props => BG(props.bg)}
-  color: ${props => props.color};
+  margin: ${(props) => props.margin};
+  ${(props) => BG(props.bg)}
+  color: ${(props) => props.color};
   border: none;
   box-sizing: border-box;
   cursor: pointer;
-  text-decoration: ${props => props.deco};
-  font-size: ${props => props.size};
-  font-family: ${props => props.fontFamily}, sans-serif;
+  text-decoration: ${(props) => props.deco};
+  font-size: ${(props) => props.size};
+  font-family: ${(props) => props.fontFamily}, sans-serif;
 `;
 
 const FloatBtn = styled.button`
