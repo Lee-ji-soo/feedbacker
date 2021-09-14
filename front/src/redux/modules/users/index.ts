@@ -1,9 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { history } from "../configureStore";
-import { auth, storage, realtime } from "../../firebase";
+import { history } from "../../configureStore";
+import { auth, storage, realtime } from "../../../firebase";
 import firebase from "firebase/app";
-import { User, LoginFB } from "./userTypes";
+import { User, LoginFB } from "./types";
 
 //actions
 const LOG_OUT = "LOG_OUT";
@@ -73,7 +73,7 @@ const joinFB = (id, pwd, user_name, preview) => async (dispatch) => {
     history.replace("/");
     // user id로 - noti reatimedb 생성
     realtime.ref(`noti/${user.user.uid}`).push();
-    dispatch(loginFB(id, pwd));
+    dispatch(loginFB(id));
     dispatch(loading(false));
   } catch (err) {
     window.alert("회원가입에 실패했습니다.");

@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
-import { storage } from "../../firebase";
+import { storage } from "../../../firebase";
+import { Image } from "./types";
 
 const UPLOADING = "UPLOADING";
 const UPLOAD_IMG = "UPLOAD_IMG";
@@ -10,7 +11,7 @@ const uploading = createAction(UPLOADING, (uploading) => ({ uploading }));
 const uploadImg = createAction(UPLOAD_IMG, (image_url) => ({ image_url }));
 const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 
-const initialState = {
+const initialState: Image  = {
   image_url: "",
   uploading: false,
   preview: null,
