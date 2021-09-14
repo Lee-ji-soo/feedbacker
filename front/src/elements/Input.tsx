@@ -3,33 +3,33 @@ import { Fragment, useState } from "react";
 import styled from "styled-components";
 
 interface IntputStylesProps {
-  width: string;
-  padding: string;
-  padding_p: string;
-  color: "light" | "dark";
+  width?: string;
+  padding?: string;
+  padding_p?: string;
+  color?: "light" | "dark";
 }
 
 interface InputProps extends IntputStylesProps {
-  label: string;
-  value: string;
-  type: string;
+  label?: string;
+  value?: string;
+  type?: string;
   placeholder: string;
-  _onChange: () => void;
-  onSubmit: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  _onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const Input = (props: InputProps) => {
   const {
-    width,
-    padding,
-    padding_p,
-    label,
-    type,
-    value,
-    color,
+    width= '100%',
+    padding = '0px',
+    padding_p = '0px',
+    label = '',
+    type = 'text',
+    value = '',
+    color = 'light',
     placeholder,
-    _onChange,
-    onSubmit,
+    _onChange = () => {},
+    onSubmit = () => {},
   } = props;
 
   const styles = { width, color, padding, padding_p };

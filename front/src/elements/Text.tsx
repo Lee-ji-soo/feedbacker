@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 interface TextProps {
   children: React.ReactNode;
-  padding: string;
-  bold: boolean;
-  color: string;
-  size: string;
-  align: "center" | "start" | "end";
-  fontFamily: string;
+  padding?: string;
+  bold?: boolean;
+  color?: string;
+  size?: string;
+  align?: "center" | "start" | "end";
+  fontFamily?: string;
 }
 
 const Text = (props: TextProps) => {

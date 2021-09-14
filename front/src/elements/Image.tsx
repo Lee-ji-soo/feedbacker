@@ -3,23 +3,23 @@ import { Fragment } from "react";
 import styled from "styled-components";
 
 interface ImageStylesProps {
-  padding: string;
+  padding?: string;
   src: string;
-  size: number;
-  bgSize: "contain" | "cover" | "inherit";
-  border: string;
+  size?: string;
+  bgSize?: "contain" | "cover" | "inherit";
+  border?: string;
 }
 
 interface ImageProps extends ImageStylesProps {
-  width: string;
+  width?: string;
   shape: "rectangle" | "circle";
 }
 const Image = (props: ImageProps) => {
-  const { shape, src, size, padding, bgSize, border } = props;
+  const { width = "100%", shape, src, padding, bgSize, border } = props;
 
   const styles = {
     src,
-    size,
+    width,
     padding,
     bgSize,
     border,
@@ -41,7 +41,7 @@ const Image = (props: ImageProps) => {
 };
 
 const AspectOuter = styled.div<ImageStylesProps>`
-  width: ${(props) => props.size};
+  width: ${(props) => props.width};
   min-width: 70px;
   background-color: #f8f8f8;
 `;
@@ -59,7 +59,7 @@ const AspectInner = styled.div<ImageStylesProps>`
 `;
 
 const ImageCircle = styled.div<ImageStylesProps>`
-  --size: ${(props) => props.size}px;
+  --size: ${(props) => props.width}px;
   width: var(--size);
   height: var(--size);
   padding: ${(props) => props.padding};

@@ -2,28 +2,28 @@ import * as React from "react";
 import styled from "styled-components";
 
 interface ButtonProps {
-  width: string;
-  margin: string;
-  bg: "ligth" | "dark" | "white";
-  color: string;
-  fontFamily: string;
-  size: string;
-  deco: "none";
+  width?: string;
+  margin?: string;
+  bg: "light" | "dark" | "white";
+  color?: string;
+  fontFamily?: string;
+  size?: string;
+  deco?: "none";
   txt: string;
-  _onClick: () => void;
-  is_float: boolean;
+  _onClick: (e: React.FormEvent<HTMLFormElement>) => void;
+  is_float?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
   const {
-    width,
-    margin,
-    bg,
-    color,
-    fontFamily,
-    deco,
-    size,
-    _onClick,
+    width = "100%",
+    margin = "0",
+    bg = "light",
+    color = "#111",
+    fontFamily = "NotoSans",
+    deco = "none",
+    size = "14px",
+    _onClick = () => {},
     txt,
     is_float,
   } = props;

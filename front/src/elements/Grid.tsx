@@ -4,10 +4,15 @@ import styled from "styled-components";
 
 interface GridProps {
   is_flex?: boolean;
-  justify?: "space-between" | "flex-start" | "flex-end" | "space-around";
-  align?: "center" | "start" | "end";
+  justify?:
+    | "space-between"
+    | "center"
+    | "flex-start"
+    | "flex-end"
+    | "space-around";
+  align?: "center" | "flex-start" | "flex-end";
   direction?: "row" | "column";
-  position?: "absolute" | "fixed" | "sticky";
+  position?: "absolute" | "relative" | "fixed" | "sticky";
   width?: string;
   height?: string;
   padding?: string;
@@ -66,18 +71,18 @@ const GridBox = styled.div`
       display: flex;
     `
       : null}
-  flex-direction: ${props => props.direction};
-  justify-content: ${props => props.justify};
-  align-items: ${props => props.align};
-  position: ${props => props.position};
-  width: ${props => props.width};
+  flex-direction: ${(props) => props.direction};
+  justify-content: ${(props) => props.justify};
+  align-items: ${(props) => props.align};
+  position: ${(props) => props.position};
+  width: ${(props) => props.width};
   max-width: 1100px;
-  height: ${props => props.height};
-  padding: ${props => props.padding ? props.padding : null};
-  margin: ${props => props.margin ? props.margin : null};
+  height: ${(props) => props.height};
+  padding: ${(props) => (props.padding ? props.padding : null)};
+  margin: ${(props) => (props.margin ? props.margin : null)};
   box-sizing: border-box;
-  background-color: ${props => props.bg ? props.bg : null};
-  ${props => props.extras}
+  background-color: ${(props) => (props.bg ? props.bg : null)};
+  ${(props) => props.extras}
 `;
 
 export default Grid;
